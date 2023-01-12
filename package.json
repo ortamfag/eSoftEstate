@@ -1,0 +1,33 @@
+{
+  "name": "esoftestate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ortamfag/eSoftEstate.git"
+  },
+  "author": "Katye",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ortamfag/eSoftEstate/issues"
+  },
+  "homepage": "https://github.com/ortamfag/eSoftEstate#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "nodemon": "^2.0.19"
+  },
+  "devDependencies": {
+    "bcrypt": "^5.1.0",
+    "body-parser": "^1.20.0",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.0.2",
+    "express-handlebars": "^6.0.6",
+    "express-validator": "^6.14.2",
+    "mysql": "^2.18.1",
+    "sequelize": "^6.21.6"
+  }
+}
