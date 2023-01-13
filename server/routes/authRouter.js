@@ -5,6 +5,7 @@ const startController = require('../controllers/startController')
 const clientController = require('../controllers/clientController')
 const rieltorController = require('../controllers/rieltorController')
 const searchController = require('../controllers/searchController')
+const estateController = require('../controllers/estateController')
 
 router.get('/', startController.start)
 
@@ -35,6 +36,20 @@ router.post('/deleteRieltorAction/:id', rieltorController.deleteRieltor)
 //Change Rieltor
 router.get('/editRieltorView/:id', rieltorController.editRieltorView)
 router.post('/editRieltor/:id', rieltorController.editRieltor)
+
+//Client view
+router.get('/estate', estateController.estateView)
+
+// //Add client
+// router.get('/addEstate', estateController.addEstateView)
+// router.post('/addEstateAction', estateController.addEstate)
+
+// //Delete client
+// router.post('/deleteEstateAction/:id', estateController.deleteEstate)
+
+// //Change client
+// router.get('/editEstateView/:id', estateController.editEstateView)
+// router.post('/editEstate/:id', estateController.editEstate)
 
 router.get('/search', searchController.ClientAndRieltor)
 

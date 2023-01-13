@@ -1,0 +1,72 @@
+<a class="addClient" href="/addEstate">Добавить новый объект недвижимости</a>
+
+<table class="table table-bordered">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Город</th>
+      <th scope="col">Улица</th>
+      <th scope="col">Номер дома</th>
+      <th scope="col">Номер квартиры</th>
+      <th scope="col">Широта</th>
+      <th scope="col">Долгота</th>
+      <th scope="col">Тип</th>
+      <th scope="col">Действия</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {{#each flat}}
+    <tr>
+      <td>{{this.city}}</td>
+      <td>{{this.street}}</td>
+      <td>{{this.entranceNumber}}</td>
+      <td>{{this.flatNumber}}</td>
+      <td>{{this.latitude}}</td>
+      <td>{{this.longitude}}</td>
+      <td>Квартира</td>
+      <td>
+        <a href="/editEstateView/{{this.id}}" type="button">Изменить</a>
+        <form class="row g-3 needs-validation" method="POST" action="/deleteEstateAction/{{this.id}}" novalidate>
+            <button class="noButton" type="submit">Удаление</button>
+        </form>
+      </td>
+    </tr>
+    {{/each}}
+
+    {{#each house}}
+    <tr>
+      <td>{{this.city}}</td>
+      <td>{{this.street}}</td>
+      <td>{{this.entranceNumber}}</td>
+      <td>{{this.flatNumber}}</td>
+      <td>{{this.latitude}}</td>
+      <td>{{this.longitude}}</td>
+      <td>Дом</td>
+      <td>
+        <a href="/editEstateView/{{this.id}}" type="button">Изменить</a>
+        <form class="row g-3 needs-validation" method="POST" action="/deleteEstateAction/{{this.id}}" novalidate>
+            <button class="noButton" type="submit">Удаление</button>
+        </form>
+      </td>
+    </tr>
+    {{/each}}
+
+    {{#each territory}}
+    <tr>
+      <td>{{this.city}}</td>
+      <td>{{this.street}}</td>
+      <td>{{this.entranceNumber}}</td>
+      <td>{{this.flatNumber}}</td>
+      <td>{{this.latitude}}</td>
+      <td>{{this.longitude}}</td>
+      <td>Земля</td>
+      <td>
+        <a href="/editEstateView/{{this.id}}" type="button">Изменить</a>
+        <form class="row g-3 needs-validation" method="POST" action="/deleteEstateAction/{{this.id}}" novalidate>
+            <button class="noButton" type="submit">Удаление</button>
+        </form>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
