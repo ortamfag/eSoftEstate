@@ -102,3 +102,38 @@ exports.addClient = (req, res) => {
         })
     })
 }
+
+//Delete client
+exports.deleteClient = (req, res) => {
+    pool.getConnection((err, connection) => {
+        if (err) throw err; //not connected
+        console.log('Connected as ID' + connection.threadId)
+
+        // User the connection
+        connection.query('DELETE FROM client WHERE id = ?', [req.params.id], (err, rows) => {
+            //when done with connection, release it
+            connection.release();
+
+            if (!err) {
+                pool.getConnection((err, connection) => {
+                    if (err) throw err; //not connected
+                    console.log('Connected as ID' + connection.threadId)
+            
+                    // User the connection
+                    connection.query('SELECT * FROM client', (err, rows) => {
+                        //when done with connection, release it
+                        connection.release();
+            
+                        if (!err) {
+                            res.render('client', { rows })
+                        } else {
+                            console.log(err);
+                        }
+                    })
+                })
+            } else {
+                console.log(err);
+            }
+        })
+    })
+}

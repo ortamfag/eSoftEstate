@@ -22,7 +22,10 @@
       <td>{{this.phone}}</td>
       <td>
         <a href="/changeClient/{{this.ID}}" type="button">Изменить</a>
-        <a href="/deleteClient/{{this.ID}}" type="button">Удаление</a>
+
+        <form class="row g-3 needs-validation" method="POST" action="/deleteClientAction/{{this.id}}" novalidate>
+            <button type="submit">Удаление</button>
+        </form>
       </td>
     </tr>
     {{/each}}

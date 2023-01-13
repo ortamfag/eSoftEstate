@@ -9,8 +9,11 @@ router.get('/', startController.start)
 //Client view
 router.get('/client', clientController.clientView)
 
-//Add Client
+//Add client
 router.get('/addClient', clientController.addClientView)
 router.post('/addClientAction', clientController.addClient)
+
+//Delete client
+router.post('/deleteClientAction/:id', clientController.deleteClient)
 
 module.exports = router
