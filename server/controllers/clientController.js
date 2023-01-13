@@ -137,3 +137,62 @@ exports.deleteClient = (req, res) => {
         })
     })
 }
+
+//Edit client
+
+exports.editClientView = (req, res) => {
+    pool.getConnection((err, connection) => {
+        if (err) throw err; //not connected
+        console.log('Connected as ID' + connection.threadId)
+
+        // User the connection
+        connection.query('SELECT * FROM client WHERE id = ?', [req.params.id], (err, rows) => {
+            //when done with connection, release it
+            connection.release();
+
+            if (!err) {
+                res.render('editClient', { rows })
+            } else {
+                console.log(err);
+            }
+        })
+    })
+}
+
+exports.editClient = (req, res) => {
+    const {firstName, lastName, patronymic, email, phone} = req.body
+
+    console.log(phone)
+
+    pool.getConnection((err, connection) => {
+        if (err) throw err; //not connected
+        console.log('Connected as ID' + connection.threadId)
+
+        // User the connection
+        connection.query('UPDATE client SET firstName = ?, lastName = ?, patronymic = ?, email = ?, phone = ? WHERE ID = ?', [firstName, lastName, patronymic, email, phone, req.params.id], (err, rows) => {
+            //when done with connection, release it
+            connection.release();
+
+            if (!err) {
+                pool.getConnection((err, connection) => {
+                    if (err) throw err; //not connected
+                    console.log('Connected as ID' + connection.threadId)
+            
+                    // User the connection
+                    connection.query('SELECT * FROM client WHERE ID = ?', [req.params.id], (err, rows) => {
+                        //when done with connection, release it
+                        connection.release();
+            
+                        if (!err) {
+                            res.render('editClient', { rows, alert: `${firstName} has been updated` })
+                        } else {
+                            console.log(err);
+                        }
+                    })
+                })
+            } else {
+                console.log(err);
+            }
+        })
+    })
+}

@@ -59,3 +59,11 @@ td{
 .form-select{
     width: 250px;
 }
+
+.noButton{
+    background: transparent;
+    border: 0;
+    outline: none;
+    @include fontRegular;
+    font-size: 15px;
+}

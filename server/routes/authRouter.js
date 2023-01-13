@@ -16,4 +16,8 @@ router.post('/addClientAction', clientController.addClient)
 //Delete client
 router.post('/deleteClientAction/:id', clientController.deleteClient)
 
+//Change client
+router.get('/editClientView/:id', clientController.editClientView)
+router.post('/editClient/:id', clientController.editClient)
+
 module.exports = router
