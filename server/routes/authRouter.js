@@ -4,6 +4,7 @@ const router = express.Router();
 const startController = require('../controllers/startController')
 const clientController = require('../controllers/clientController')
 const rieltorController = require('../controllers/rieltorController')
+const searchController = require('../controllers/searchController')
 
 router.get('/', startController.start)
 
@@ -21,18 +22,20 @@ router.post('/deleteClientAction/:id', clientController.deleteClient)
 router.get('/editClientView/:id', clientController.editClientView)
 router.post('/editClient/:id', clientController.editClient)
 
-//Client view
+//Rieltor view
 router.get('/rieltor', rieltorController.rieltorView)
 
-//Add client
+//Add Rieltor
 router.get('/addRieltor', rieltorController.addRieltorView)
 router.post('/addRieltorAction', rieltorController.addRieltor)
 
-//Delete client
+//Delete Rieltor
 router.post('/deleteRieltorAction/:id', rieltorController.deleteRieltor)
 
-//Change client
+//Change Rieltor
 router.get('/editRieltorView/:id', rieltorController.editRieltorView)
 router.post('/editRieltor/:id', rieltorController.editRieltor)
+
+router.get('/search', searchController.ClientAndRieltor)
 
 module.exports = router
