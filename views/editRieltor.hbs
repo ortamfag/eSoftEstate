@@ -1,0 +1,40 @@
+{{#if alert}}
+<div class="alert alert-success d-flex align-items-center" role="alert">
+    {{alert}}
+</div>
+{{/if}}
+
+{{#each rows}}
+<form class="row g-3 needs-validation" method="POST" action="/editRieltor/{{this.id}}" novalidate>
+    <div class="user-form">
+        <div class="form__input">
+            <label class="user-form-label" for="floatingInput">Имя</label>
+            <input type="text" class="form-control" id="floatingInput" value="{{this.firstName}}" placeholder="Имя"
+                name="firstName">
+        </div>
+
+        <div class="form__input">
+            <label class="user-form-label" for="floatingInput">Фамилия</label>
+            <input type="text" class="form-control" id="floatingInput" value="{{this.lastName}}" placeholder="Фамилия"
+                name="lastName"> 
+        </div>
+
+        <div class="form__input">
+            <label class="user-form-label" for="floatingInput">Отчество</label>
+            <input type="text" class="form-control" id="floatingInput" value="{{this.patronymic}}" placeholder="Отчество"
+                name="patronymic"> 
+        </div>
+
+        <div class="form__input">
+            <label class="user-form-label" for="floatingInput">Комиссия</label>
+            <input type="text" class="form-control" id="floatingInput" value="{{this.comission}}" placeholder="Комиссия"
+                name="comission">
+        </div>
+
+    </div>
+
+    <div class="col-12">
+        <button class="btn btn-primary" type="submit">Изменить</button>
+    </div>
+</form>
+{{/each}}

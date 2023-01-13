@@ -49,7 +49,7 @@ exports.addClient = (req, res) => {
             if (!err) {
                 if (candidate.length >= 1) {
                     res.render('addClient', { 
-                        alertBad: "Пользователь с таким E-mail уже существует" 
+                        alertBad: "Клиент с таким E-mail уже существует" 
                     })
                 } else {
                     switch(0) {
@@ -86,7 +86,7 @@ exports.addClient = (req, res) => {
                                     connection.release();
                         
                                     if (!err) {
-                                        res.render('addClient', { alertSuccess: "Пользователь зарегистрирован" })
+                                        res.render('addClient', { alertSuccess: "Клиент зарегистрирован" })
                                     } else {
                                         console.log(err);
                                     }
@@ -184,7 +184,7 @@ exports.editClient = (req, res) => {
                         connection.release();
             
                         if (!err) {
-                            res.render('editClient', { rows, alert: `${firstName} has been updated` })
+                            res.render('editClient', { rows, alert: `${firstName} обновлен` })
                         } else {
                             console.log(err);
                         }
