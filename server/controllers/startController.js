@@ -1,6 +1,4 @@
 const mysql = require('mysql')
-const bcrypt = require('bcrypt');
-const saltRounds = 7;
 
 // Connection Pool
 const pool = mysql.createPool({
@@ -12,6 +10,6 @@ const pool = mysql.createPool({
     database: process.env.DB_NAME
 })
 
-exports.test = (req, res) => {
-    res.render('test')
+exports.start = (req, res) => {
+    res.render('start')
 }
