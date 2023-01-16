@@ -124,7 +124,6 @@ exports.addEstate = (req, res) => {
 
 //Delete estate
 exports.deleteEstateFlat = (req, res) => {
-    console.log(req.params.id)
     pool.getConnection((err, connection) => {
         if (err) throw err; //not connected
         console.log('Connected as ID' + connection.threadId)
@@ -316,61 +315,169 @@ exports.deleteEstateTerritory = (req, res) => {
     })
 }
 
-// //Edit client
+//Edit Estate
 
-// exports.editClientView = (req, res) => {
-//     pool.getConnection((err, connection) => {
-//         if (err) throw err; //not connected
-//         console.log('Connected as ID' + connection.threadId)
+exports.editEstateFlatView = (req, res) => {
+    pool.getConnection((err, connection) => {
+        if (err) throw err; //not connected
+        console.log('Connected as ID' + connection.threadId)
 
-//         // User the connection
-//         connection.query('SELECT * FROM client WHERE id = ?', [req.params.id], (err, rows) => {
-//             //when done with connection, release it
-//             connection.release();
+        // User the connection
+        connection.query('SELECT * FROM flat WHERE id = ?', [req.params.id], (err, rows) => {
+            //when done with connection, release it
+            connection.release();
 
-//             if (!err) {
-//                 res.render('editClient', { rows })
-//             } else {
-//                 console.log(err);
-//             }
-//         })
-//     })
-// }
+            if (!err) {
+                res.render('editEstateFlat', { rows })
+            } else {
+                console.log(err);
+            }
+        })
+    })
+}
 
-// exports.editClient = (req, res) => {
-//     const {firstName, lastName, patronymic, email, phone} = req.body
+exports.editEstateFlat = (req, res) => {
+    const { city, street, entranceNumber, flatNumber, latitude, longitude, flat_floor, flat_roomNumber, flat_space } = req.body
 
-//     console.log(phone)
+    pool.getConnection((err, connection) => {
+        if (err) throw err; //not connected
+        console.log('Connected as ID' + connection.threadId)
 
-//     pool.getConnection((err, connection) => {
-//         if (err) throw err; //not connected
-//         console.log('Connected as ID' + connection.threadId)
+        // User the connection
+        connection.query('UPDATE flat SET city = ?, street = ?, entranceNumber = ?, flatNumber = ?, latitude = ?, longitude = ?, floor = ?, roomNumber = ?, space = ? WHERE id = ?', [city, street, entranceNumber, flatNumber, latitude, longitude, flat_floor, flat_roomNumber, flat_space, req.params.id], (err) => {
+            //when done with connection, release it
+            connection.release();
 
-//         // User the connection
-//         connection.query('UPDATE client SET firstName = ?, lastName = ?, patronymic = ?, email = ?, phone = ? WHERE ID = ?', [firstName, lastName, patronymic, email, phone, req.params.id], (err, rows) => {
-//             //when done with connection, release it
-//             connection.release();
-
-//             if (!err) {
-//                 pool.getConnection((err, connection) => {
-//                     if (err) throw err; //not connected
-//                     console.log('Connected as ID' + connection.threadId)
+            if (!err) {
+                pool.getConnection((err, connection) => {
+                    if (err) throw err; //not connected
+                    console.log('Connected as ID' + connection.threadId)
             
-//                     // User the connection
-//                     connection.query('SELECT * FROM client WHERE ID = ?', [req.params.id], (err, rows) => {
-//                         //when done with connection, release it
-//                         connection.release();
+                    // User the connection
+                    connection.query('SELECT * FROM flat WHERE ID = ?', [req.params.id], (err, rows) => {
+                        //when done with connection, release it
+                        connection.release();
             
-//                         if (!err) {
-//                             res.render('editClient', { rows, alert: `${firstName} обновлен` })
-//                         } else {
-//                             console.log(err);
-//                         }
-//                     })
-//                 })
-//             } else {
-//                 console.log(err);
-//             }
-//         })
-//     })
-// }
+                        if (!err) {
+                            res.render('editEstateFlat', { rows, alert: `Квартира обновлена` })
+                        } else {
+                            console.log(err);
+                        }
+                    })
+                })
+            } else {
+                console.log(err);
+            }
+        })
+    })
+}
+
+exports.editEstateHouseView = (req, res) => {
+    pool.getConnection((err, connection) => {
+        if (err) throw err; //not connected
+        console.log('Connected as ID' + connection.threadId)
+
+        // User the connection
+        connection.query('SELECT * FROM house WHERE id = ?', [req.params.id], (err, rows) => {
+            //when done with connection, release it
+            connection.release();
+
+            if (!err) {
+                res.render('editEstateHouse', { rows })
+            } else {
+                console.log(err);
+            }
+        })
+    })
+}
+
+exports.editEstateHouse = (req, res) => {
+    const { city, street, entranceNumber, flatNumber, latitude, longitude, house_floor, house_roomNumber, house_space } = req.body
+
+    pool.getConnection((err, connection) => {
+        if (err) throw err; //not connected
+        console.log('Connected as ID' + connection.threadId)
+
+        // User the connection
+        connection.query('UPDATE house SET city = ?, street = ?, entranceNumber = ?, flatNumber = ?, latitude = ?, longitude = ?, floor = ?, roomNumber = ?, space = ? WHERE id = ?', [city, street, entranceNumber, flatNumber, latitude, longitude, house_floor, house_roomNumber, house_space, req.params.id], (err) => {
+            //when done with connection, release it
+            connection.release();
+
+            if (!err) {
+                pool.getConnection((err, connection) => {
+                    if (err) throw err; //not connected
+                    console.log('Connected as ID' + connection.threadId)
+            
+                    // User the connection
+                    connection.query('SELECT * FROM house WHERE ID = ?', [req.params.id], (err, rows) => {
+                        //when done with connection, release it
+                        connection.release();
+            
+                        if (!err) {
+                            res.render('editEstateHouse', { rows, alert: `Дом обновлен` })
+                        } else {
+                            console.log(err);
+                        }
+                    })
+                })
+            } else {
+                console.log(err);
+            }
+        })
+    })
+}
+
+exports.editEstateTerritoryView = (req, res) => {
+    pool.getConnection((err, connection) => {
+        if (err) throw err; //not connected
+        console.log('Connected as ID' + connection.threadId)
+
+        // User the connection
+        connection.query('SELECT * FROM territory WHERE id = ?', [req.params.id], (err, rows) => {
+            //when done with connection, release it
+            connection.release();
+
+            if (!err) {
+                res.render('editEstateTerritory', { rows })
+            } else {
+                console.log(err);
+            }
+        })
+    })
+}
+
+exports.editEstateTerritory = (req, res) => {
+    const { city, street, entranceNumber, flatNumber, latitude, longitude, territory_space } = req.body
+
+    pool.getConnection((err, connection) => {
+        if (err) throw err; //not connected
+        console.log('Connected as ID' + connection.threadId)
+
+        // User the connection
+        connection.query('UPDATE territory SET city = ?, street = ?, entranceNumber = ?, flatNumber = ?, latitude = ?, longitude = ?, space = ? WHERE id = ?', [city, street, entranceNumber, flatNumber, latitude, longitude, territory_space, req.params.id], (err) => {
+            //when done with connection, release it
+            connection.release();
+
+            if (!err) {
+                pool.getConnection((err, connection) => {
+                    if (err) throw err; //not connected
+                    console.log('Connected as ID' + connection.threadId)
+            
+                    // User the connection
+                    connection.query('SELECT * FROM territory WHERE ID = ?', [req.params.id], (err, rows) => {
+                        //when done with connection, release it
+                        connection.release();
+            
+                        if (!err) {
+                            res.render('editEstateTerritory', { rows, alert: `Земля обновлена` })
+                        } else {
+                            console.log(err);
+                        }
+                    })
+                })
+            } else {
+                console.log(err);
+            }
+        })
+    })
+}

@@ -49,9 +49,15 @@ router.post('/deleteEstateAction/flat/:id', estateController.deleteEstateFlat)
 router.post('/deleteEstateAction/house/:id', estateController.deleteEstateHouse)
 router.post('/deleteEstateAction/territory/:id', estateController.deleteEstateTerritory)
 
-// //Change client
-// router.get('/editEstateView/:id', estateController.editEstateView)
-// router.post('/editEstate/:id', estateController.editEstate)
+//Change client
+router.get('/editEstateView/flat/:id', estateController.editEstateFlatView)
+router.post('/editEstate/flat/:id', estateController.editEstateFlat)
+
+router.get('/editEstateView/house/:id', estateController.editEstateHouseView)
+router.post('/editEstate/house/:id', estateController.editEstateHouse)
+
+router.get('/editEstateView/territory/:id', estateController.editEstateTerritoryView)
+router.post('/editEstate/territory/:id', estateController.editEstateTerritory)
 
 router.get('/search', searchController.ClientAndRieltor)
 

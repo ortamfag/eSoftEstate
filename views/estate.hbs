@@ -25,7 +25,7 @@
       <td>{{this.longitude}}</td>
       <td>Квартира</td>
       <td>
-        <a href="/editEstateView/{{this.id}}" type="button">Изменить</a>
+        <a href="/editEstateView/flat/{{this.id}}" type="button">Изменить</a>
         <form class="row g-3 needs-validation" method="POST" action="/deleteEstateAction/flat/{{this.id}}" novalidate>
             <button class="noButton" type="submit">Удаление</button>
         </form>
@@ -43,7 +43,7 @@
       <td>{{this.longitude}}</td>
       <td>Дом</td>
       <td>
-        <a href="/editEstateView/{{this.id}}" type="button">Изменить</a>
+        <a href="/editEstateView/house/{{this.id}}" type="button">Изменить</a>
         <form class="row g-3 needs-validation" method="POST" action="/deleteEstateAction/house/{{this.id}}" novalidate>
             <button class="noButton" type="submit">Удаление</button>
         </form>
@@ -61,7 +61,7 @@
       <td>{{this.longitude}}</td>
       <td>Земля</td>
       <td>
-        <a href="/editEstateView/{{this.id}}" type="button">Изменить</a>
+        <a href="/editEstateView/territory/{{this.id}}" type="button">Изменить</a>
         <form class="row g-3 needs-validation" method="POST" action="/deleteEstateAction/territory/{{this.id}}" novalidate>
             <button class="noButton" type="submit">Удаление</button>
         </form>

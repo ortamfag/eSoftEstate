@@ -1,0 +1,71 @@
+{{#if alert}}
+<div class="alert alert-success d-flex align-items-center" role="alert">
+    {{alert}}
+</div>
+{{/if}}
+
+{{#each rows}}
+<form class="row g-3 needs-validation" method="POST" action="/editEstate/flat/{{this.id}}" novalidate>
+    <div class="user-form">
+
+        <div class="form__input">
+            <label class="user-form-label" for="floatingInput">Город</label>
+            <input type="text" class="form-control" id="floatingInput" value="{{this.city}}" placeholder="Город"
+                name="city">
+        </div>
+
+        <div class="form__input">
+            <label class="user-form-label" for="floatingInput">Улица</label>
+            <input type="text" class="form-control" id="floatingInput" value="{{this.street}}" placeholder="Улица"
+                name="street"> 
+        </div>
+
+        <div class="form__input">
+            <label class="user-form-label" for="floatingInput">Номер дома</label>
+            <input type="text" class="form-control" id="floatingInput" value="{{this.entranceNumber}}" placeholder="Номер дома"
+                name="entranceNumber"> 
+        </div>
+
+        <div class="form__input">
+            <label class="user-form-label" for="floatingInput">Номер квартиры</label>
+            <input type="text" class="form-control" id="floatingInput" value="{{this.flatNumber}}" placeholder="Номер квартиры"
+                name="flatNumber">
+        </div>
+
+        <div class="form__input">
+            <label class="user-form-label" for="floatingInput">Широта</label>
+            <input type="text" class="form-control" id="floatingInput" value="{{this.latitude}}" placeholder="Широта"
+                name="latitude">
+        </div>
+
+        <div class="form__input">
+            <label class="user-form-label" for="floatingInput">Долгота</label>
+            <input type="text" class="form-control" id="floatingInput" value="{{this.longitude}}" placeholder="Долгота"
+                name="longitude">
+        </div>
+
+        <div class="form__input">
+            <label class="user-form-label" for="floatingInput">Этаж</label>
+            <input type="text" class="form-control" id="floatingInput" value="{{this.floor}}" placeholder="Этаж"
+                name="flat_floor">
+        </div>
+
+        <div class="form__input">
+            <label class="user-form-label" for="floatingInput">Количество комнат</label>
+            <input type="text" class="form-control" id="floatingInput" value="{{this.roomNumber}}" placeholder="Количество комнат"
+                name="flat_roomNumber">
+        </div>
+
+        <div class="form__input">
+            <label class="user-form-label" for="floatingInput">Площадь</label>
+            <input type="text" class="form-control" id="floatingInput" value="{{this.space}}" placeholder="Площадь"
+                name="flat_space">
+        </div>
+
+    </div>
+
+    <div class="col-12">
+        <button class="btn btn-primary" type="submit">Изменить</button>
+    </div>
+</form>
+{{/each}}
