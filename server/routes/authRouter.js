@@ -37,15 +37,17 @@ router.post('/deleteRieltorAction/:id', rieltorController.deleteRieltor)
 router.get('/editRieltorView/:id', rieltorController.editRieltorView)
 router.post('/editRieltor/:id', rieltorController.editRieltor)
 
-//Client view
+//Estate view
 router.get('/estate', estateController.estateView)
 
-//Add client
+//Add Estate
 router.get('/addEstate', estateController.addEstateView)
 router.post('/addEstateAction', estateController.addEstate)
 
-// //Delete client
-// router.post('/deleteEstateAction/:id', estateController.deleteEstate)
+//Delete estate
+router.post('/deleteEstateAction/flat/:id', estateController.deleteEstateFlat)
+router.post('/deleteEstateAction/house/:id', estateController.deleteEstateHouse)
+router.post('/deleteEstateAction/territory/:id', estateController.deleteEstateTerritory)
 
 // //Change client
 // router.get('/editEstateView/:id', estateController.editEstateView)
