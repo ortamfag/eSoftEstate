@@ -40,9 +40,9 @@ router.post('/editRieltor/:id', rieltorController.editRieltor)
 //Client view
 router.get('/estate', estateController.estateView)
 
-// //Add client
-// router.get('/addEstate', estateController.addEstateView)
-// router.post('/addEstateAction', estateController.addEstate)
+//Add client
+router.get('/addEstate', estateController.addEstateView)
+router.post('/addEstateAction', estateController.addEstate)
 
 // //Delete client
 // router.post('/deleteEstateAction/:id', estateController.deleteEstate)
