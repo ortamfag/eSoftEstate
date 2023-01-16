@@ -10,6 +10,7 @@
 </div>
 {{/if}}
 
+
 <form class="row g-3 needs-validation" method="POST" action="/addEstateAction" novalidate>
     <div class="user-form">
         <div class="form__input">
@@ -44,8 +45,8 @@
 
         <div class="form__input">
             <label class="user-form-label" for="floatingInput">Долгота</label>
-            <input type="text" class="form-control" id="floatingInput" value="{{this.latitude}}" placeholder="Широта"
-                name="latitude">
+            <input type="text" class="form-control" id="floatingInput" value="{{this.longitude}}" placeholder="Долгота"
+                name="longitude">
         </div>
 
         <div class="form__input">
@@ -57,51 +58,51 @@
             </select>
         </div>
 
-        <div id="estate_flat">
+        <div class="none" id="estate_flat">
             <div class="form__input">
                 <label class="user-form-label" for="floatingInput">Этаж</label>
                 <input type="text" class="form-control" id="floatingInput" value="{{this.floor}}" placeholder="Этаж"
-                    name="floor">
+                    name="flat_floor">
             </div>
 
             <div class="form__input">
                 <label class="user-form-label" for="floatingInput">Количество комнат</label>
                 <input type="text" class="form-control" id="floatingInput" value="{{this.roomNumber}}" placeholder="Количество комнат"
-                    name="roomNumber">
+                    name="flat_roomNumber">
             </div>
 
             <div class="form__input">
                 <label class="user-form-label" for="floatingInput">Площадь</label>
                 <input type="text" class="form-control" id="floatingInput" value="{{this.space}}" placeholder="Площадь"
-                    name="space">
+                    name="flat_space">
             </div>
         </div>
 
-        <div id="estate_house">
+        <div class="none" id="estate_house">
             <div class="form__input">
                 <label class="user-form-label" for="floatingInput">Этажность дома</label>
                 <input type="text" class="form-control" id="floatingInput" value="{{this.floor}}" placeholder="Этажность дома"
-                    name="floor">
+                    name="house_floor">
             </div>
 
             <div class="form__input">
                 <label class="user-form-label" for="floatingInput">Количество комнат</label>
                 <input type="text" class="form-control" id="floatingInput" value="{{this.roomNumber}}" placeholder="Количество комнат"
-                    name="roomNumber">
+                    name="house_roomNumber">
             </div>
 
             <div class="form__input">
                 <label class="user-form-label" for="floatingInput">Площадь</label>
                 <input type="text" class="form-control" id="floatingInput" value="{{this.space}}" placeholder="Площадь"
-                    name="space">
+                    name="house_space">
             </div>
         </div>
 
-        <div id="estate_territory">
+        <div class="none" id="estate_territory">
             <div class="form__input">
                 <label class="user-form-label" for="floatingInput">Площадь</label>
                 <input type="text" class="form-control" id="floatingInput" value="{{this.space}}" placeholder="Площадь"
-                    name="space">
+                    name="territory_space">
             </div>
         </div>
 

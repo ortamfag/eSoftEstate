@@ -67,70 +67,62 @@ exports.addEstateView = (req, res) => {
 
 // Reg User
 exports.addEstate = (req, res) => {
-    const {firstName, lastName, patronymic, email, phone} = req.body
+    const { city, street, entranceNumber, flatNumber, latitude, longitude, EstateDropdown, flat_floor, house_floor, flat_roomNumber, house_roomNumber, flat_space, house_space, territory_space } = req.body
 
-    pool.getConnection((err, connection) => {
-        if (err) throw err; //not connected
-        console.log('Connected as ID' + connection.threadId)
-
-        connection.query('SELECT * FROM client WHERE Email = ?', [email], (err, candidate) => {
-            connection.release();
-
-            if (!err) {
-                if (candidate.length >= 1) {
-                    res.render('addClient', { 
-                        alertBad: "Клиент с таким E-mail уже существует" 
-                    })
-                } else {
-                    switch(0) {
-                        case firstName.length:
-                            firstName = '-'
-                            break
-
-                        case lastName.length:
-                            lastName = '-'
-                            break
-
-                        case patronymic.length:
-                            patronymic = '-'
-                            break
-
-                        case email.length:
-                            res.render('addClient', { 
-                                alertEmail: "Электронная почта не может быть пустой" 
-                            })
-                            break
-
-                        case phone.length:
-                            res.render('addClient', { 
-                                alertPassword: "Телефон не может быть пустым" 
-                            })
-                            break
-
-                        default:
-                            pool.getConnection((err, connection) => {
-                                if (err) throw err; //not connected
-                                console.log('Connected as ID' + connection.threadId)
-
-                                connection.query('INSERT INTO client SET firstName = ?, lastName = ?, patronymic = ?, email = ?, phone = ?', [firstName, lastName, patronymic, email, phone], (err, rows) => {
-                                    connection.release();
-                        
-                                    if (!err) {
-                                        res.render('addClient', { alertSuccess: "Клиент зарегистрирован" })
-                                    } else {
-                                        console.log(err);
-                                    }
-                                })
-                            })
-                            break
+    switch(EstateDropdown) {
+        case 'territory':
+            pool.getConnection((err, connection) => {
+                if (err) throw err; //not connected
+                console.log('Connected as ID' + connection.threadId)
+        
+                connection.query('INSERT INTO territory SET city = ?, street = ?, entranceNumber = ?, flatNumber = ?, latitude = ?, longitude = ?, space = ?', [city, street, entranceNumber, flatNumber, latitude, longitude, territory_space], (err, rows) => {
+                    connection.release();
+        
+                    if (!err) {
+                        res.render('addEstate', { alertSuccess: "Земля добавлена" })
+                    } else {
+                        console.log(err);
                     }
-                }
+                })
+            })
+            break
 
-            } else {
-                console.log(err);
-            }
-        })
-    })
+        case 'flat':
+            pool.getConnection((err, connection) => {
+                if (err) throw err; //not connected
+                console.log('Connected as ID' + connection.threadId)
+        
+                connection.query('INSERT INTO flat SET city = ?, street = ?, entranceNumber = ?, flatNumber = ?, latitude = ?, longitude = ?, floor = ?, roomNumber = ?, space = ?', [city, street, entranceNumber, flatNumber, latitude, longitude, flat_floor, flat_roomNumber, flat_space], (err, rows) => {
+                    connection.release();
+        
+                    if (!err) {
+                        res.render('addEstate', { alertSuccess: "Квартира добавлена" })
+                    } else {
+                        console.log(err);
+                    }
+                })
+            })
+            break
+
+        case 'house':
+            pool.getConnection((err, connection) => {
+                if (err) throw err; //not connected
+                console.log('Connected as ID' + connection.threadId)
+        
+                connection.query('INSERT INTO house SET city = ?, street = ?, entranceNumber = ?, flatNumber = ?, latitude = ?, longitude = ?, floor = ?, roomNumber = ?, space = ?', [city, street, entranceNumber, flatNumber, latitude, longitude, house_floor, house_roomNumber, house_space], (err, rows) => {
+                    connection.release();
+        
+                    if (!err) {
+                        res.render('addEstate', { alertSuccess: "Дом добавлен" })
+                    } else {
+                        console.log(err);
+                    }
+                })
+            })
+            break
+
+    }
+    
 }
 
 // //Delete client
