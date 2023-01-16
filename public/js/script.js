@@ -64,7 +64,7 @@ const estateTerritory = document.getElementById('estate_territory')
 
 if (estateSelect != null) {
     estateFlat.classList.add('activeB')
-    
+
     estateSelect.addEventListener('change', () => {
         switch(estateSelect.value) {
             case 'flat':
@@ -91,11 +91,18 @@ if (estateSelect != null) {
 const searchCity = document.getElementById('searchCity')
 const searchStreet = document.getElementById('searchStreet')
 const searchEntranceNumber = document.getElementById('searchEntranceNumber')
+const searchFlatNumber = document.getElementById('searchFlatNumber')
+const searchLatitude = document.getElementById('searchLatitude')
+const searchLongitude = document.getElementById('searchLongitude')
+
 const searchEstateButton = document.getElementById('searchEstateButton')
     
 let EstateCity = document.querySelectorAll('.searchEstateCity')
 let EstateStreet = document.querySelectorAll('.searchEstateStreet')
 let EstateEntranceNumber = document.querySelectorAll('.searchEstateEntranceNumber')
+let EstateFlatNumber = document.querySelectorAll('.searchFlatNumber')
+let EstateLatitude = document.querySelectorAll('.searchLatitude')
+let EstateLongitude = document.querySelectorAll('.searchLongitude')
 
 if (searchEstateButton != null) {
     searchEstateButton.addEventListener('click', () => {
@@ -130,6 +137,36 @@ if (searchEstateButton != null) {
                 }
             }
         })
+
+        EstateFlatNumber.forEach((item) => {
+            if (searchFlatNumber.value !== '') {
+                if ((item.innerHTML === searchFlatNumber.value) && (item.parentElement.classList !== ('none'))) {
+                    item.parentElement.style.display = "table-row"
+                } else {
+                    item.parentElement.classList.add('none')
+                }
+            }
+        })
+
+        EstateLatitude.forEach((item) => {
+            if (searchLatitude.value !== '') {
+                if ((item.innerHTML === searchLatitude.value) && (item.parentElement.classList !== ('none'))) {
+                    item.parentElement.style.display = "table-row"
+                } else {
+                    item.parentElement.classList.add('none')
+                }
+            }
+        })
+
+        EstateLongitude.forEach((item) => {
+            if (searchLongitude.value !== '') {
+                if ((item.innerHTML === searchLongitude.value) && (item.parentElement.classList !== ('none'))) {
+                    item.parentElement.style.display = "table-row"
+                } else {
+                    item.parentElement.classList.add('none')
+                }
+            }
+        })
     })
     
     function clearNoneClasses(){
@@ -142,6 +179,18 @@ if (searchEstateButton != null) {
         })
     
         EstateEntranceNumber.forEach((item) => {
+            item.parentElement.classList.remove('none')
+        })
+
+        EstateFlatNumber.forEach((item) => {
+            item.parentElement.classList.remove('none')
+        })
+
+        EstateLatitude.forEach((item) => {
+            item.parentElement.classList.remove('none')
+        })
+
+        EstateLongitude.forEach((item) => {
             item.parentElement.classList.remove('none')
         })
     }

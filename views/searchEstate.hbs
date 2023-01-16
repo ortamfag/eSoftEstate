@@ -1,4 +1,4 @@
-<div class="searchInput">
+<div class="searchInput searchColumn">
     <label for="searchCity">Город</label>
     <input id="searchCity" name="searchCity">
 
@@ -11,6 +11,21 @@
 
     <label for="searchEntranceNumber">Номер дома</label>
     <input id="searchEntranceNumber" name="searchEntranceNumber">
+
+    <br>
+
+    <label for="searchFlatNumber">Номер квартиры</label>
+    <input id="searchFlatNumber" name="searchFlatNumber">
+
+    <br>
+
+    <label for="searchLatitude">Широта</label>
+    <input id="searchLatitude" name="searchLatitude">
+
+    <br>
+
+    <label for="searchLongitude">Долгота</label>
+    <input id="searchLongitude" name="searchLongitude">
 
     <button id="searchEstateButton" class="btn">Поиск</button>
 </div>
@@ -36,9 +51,9 @@
       <td class="searchEstateCity">{{this.city}}</td>
       <td class="searchEstateStreet">{{this.street}}</td>
       <td class="searchEstateEntranceNumber">{{this.entranceNumber}}</td>
-      <td>{{this.flatNumber}}</td>
-      <td>{{this.latitude}}</td>
-      <td>{{this.longitude}}</td>
+      <td class="searchFlatNumber">{{this.flatNumber}}</td>
+      <td class="searchLatitude">{{this.latitude}}</td>
+      <td class="searchLongitude">{{this.longitude}}</td>
       <td>Квартира</td>
     </tr>
     {{/each}}
@@ -48,9 +63,9 @@
       <td class="searchEstateCity">{{this.city}}</td>
       <td class="searchEstateStreet">{{this.street}}</td>
       <td class="searchEstateEntranceNumber">{{this.entranceNumber}}</td>
-      <td>{{this.flatNumber}}</td>
-      <td>{{this.latitude}}</td>
-      <td>{{this.longitude}}</td>
+      <td class="searchFlatNumber">{{this.flatNumber}}</td>
+      <td class="searchLatitude">{{this.latitude}}</td>
+      <td class="searchLongitude">{{this.longitude}}</td>
       <td>Дом</td>
     </tr>
     {{/each}}
@@ -60,9 +75,9 @@
       <td class="searchEstateCity">{{this.city}}</td>
       <td class="searchEstateStreet">{{this.street}}</td>
       <td class="searchEstateEntranceNumber">{{this.entranceNumber}}</td>
-      <td>{{this.flatNumber}}</td>
-      <td>{{this.latitude}}</td>
-      <td>{{this.longitude}}</td>
+      <td class="searchFlatNumber">{{this.flatNumber}}</td>
+      <td class="searchLatitude">{{this.latitude}}</td>
+      <td class="searchLongitude">{{this.longitude}}</td>
       <td>Земля</td>
     </tr>
     {{/each}}
