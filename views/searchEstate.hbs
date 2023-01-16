@@ -1,0 +1,70 @@
+<div class="searchInput">
+    <label for="searchCity">Город</label>
+    <input id="searchCity" name="searchCity">
+
+    <br>
+
+    <label for="searchStreet">Улица</label>
+    <input id="searchStreet" name="searchStreet">
+
+    <br>
+
+    <label for="searchEntranceNumber">Номер дома</label>
+    <input id="searchEntranceNumber" name="searchEntranceNumber">
+
+    <button id="searchEstateButton" class="btn">Поиск</button>
+</div>
+
+<div class="searchEnter"></div>
+
+<table class="table table-bordered">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Город</th>
+      <th scope="col">Улица</th>
+      <th scope="col">Номер дома</th>
+      <th scope="col">Номер квартиры</th>
+      <th scope="col">Широта</th>
+      <th scope="col">Долгота</th>
+      <th scope="col">Тип</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {{#each flat}}
+    <tr>
+      <td class="searchEstateCity">{{this.city}}</td>
+      <td class="searchEstateStreet">{{this.street}}</td>
+      <td class="searchEstateEntranceNumber">{{this.entranceNumber}}</td>
+      <td>{{this.flatNumber}}</td>
+      <td>{{this.latitude}}</td>
+      <td>{{this.longitude}}</td>
+      <td>Квартира</td>
+    </tr>
+    {{/each}}
+
+    {{#each house}}
+    <tr>
+      <td class="searchEstateCity">{{this.city}}</td>
+      <td class="searchEstateStreet">{{this.street}}</td>
+      <td class="searchEstateEntranceNumber">{{this.entranceNumber}}</td>
+      <td>{{this.flatNumber}}</td>
+      <td>{{this.latitude}}</td>
+      <td>{{this.longitude}}</td>
+      <td>Дом</td>
+    </tr>
+    {{/each}}
+
+    {{#each territory}}
+    <tr>
+      <td class="searchEstateCity">{{this.city}}</td>
+      <td class="searchEstateStreet">{{this.street}}</td>
+      <td class="searchEstateEntranceNumber">{{this.entranceNumber}}</td>
+      <td>{{this.flatNumber}}</td>
+      <td>{{this.latitude}}</td>
+      <td>{{this.longitude}}</td>
+      <td>Земля</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>

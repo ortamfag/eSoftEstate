@@ -59,6 +59,9 @@ router.post('/editEstate/house/:id', estateController.editEstateHouse)
 router.get('/editEstateView/territory/:id', estateController.editEstateTerritoryView)
 router.post('/editEstate/territory/:id', estateController.editEstateTerritory)
 
-router.get('/search', searchController.ClientAndRieltor)
+//Search
+router.get('/search', searchController.search)
+router.get('/searchCR', searchController.ClientAndRieltor)
+router.get('/searchEstate', searchController.estate)
 
 module.exports = router

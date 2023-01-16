@@ -62,9 +62,9 @@ const estateFlat = document.getElementById('estate_flat')
 const estateHouse = document.getElementById('estate_house')
 const estateTerritory = document.getElementById('estate_territory')
 
-estateFlat.classList.add('activeB')
-
 if (estateSelect != null) {
+    estateFlat.classList.add('activeB')
+    
     estateSelect.addEventListener('change', () => {
         switch(estateSelect.value) {
             case 'flat':
@@ -86,4 +86,63 @@ if (estateSelect != null) {
                 break
         }
     })
+}
+
+const searchCity = document.getElementById('searchCity')
+const searchStreet = document.getElementById('searchStreet')
+const searchEntranceNumber = document.getElementById('searchEntranceNumber')
+const searchEstateButton = document.getElementById('searchEstateButton')
+    
+let EstateCity = document.querySelectorAll('.searchEstateCity')
+let EstateStreet = document.querySelectorAll('.searchEstateStreet')
+let EstateEntranceNumber = document.querySelectorAll('.searchEstateEntranceNumber')
+
+if (searchEstateButton != null) {
+    searchEstateButton.addEventListener('click', () => {
+        clearNoneClasses()
+    
+        EstateCity.forEach((item) => {
+            if (searchCity.value !== '') {
+                if ((item.innerHTML === searchCity.value) && (item.parentElement.classList !== ('none'))) {
+                    item.parentElement.style.display = "table-row"
+                } else {
+                    item.parentElement.classList.add('none')
+                }
+            }
+        })
+    
+        EstateStreet.forEach((item) => {
+            if (searchStreet.value !== '') {
+                if ((item.innerHTML === searchStreet.value) && (item.parentElement.classList !== ('none'))) {
+                    item.parentElement.style.display = "table-row"
+                } else {
+                    item.parentElement.classList.add('none')
+                }
+            }
+        })
+    
+        EstateEntranceNumber.forEach((item) => {
+            if (searchEntranceNumber.value !== '') {
+                if ((item.innerHTML === searchEntranceNumber.value) && (item.parentElement.classList !== ('none'))) {
+                    item.parentElement.style.display = "table-row"
+                } else {
+                    item.parentElement.classList.add('none')
+                }
+            }
+        })
+    })
+    
+    function clearNoneClasses(){
+        EstateCity.forEach((item) => {
+            item.parentElement.classList.remove('none')
+        })
+    
+        EstateStreet.forEach((item) => {
+            item.parentElement.classList.remove('none')
+        })
+    
+        EstateEntranceNumber.forEach((item) => {
+            item.parentElement.classList.remove('none')
+        })
+    }
 }
