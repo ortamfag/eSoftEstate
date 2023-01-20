@@ -6,6 +6,7 @@ const clientController = require('../controllers/clientController')
 const rieltorController = require('../controllers/rieltorController')
 const searchController = require('../controllers/searchController')
 const estateController = require('../controllers/estateController')
+const offerController = require('../controllers/offerController')
 
 router.get('/', startController.start)
 
@@ -63,5 +64,17 @@ router.post('/editEstate/territory/:id', estateController.editEstateTerritory)
 router.get('/search', searchController.search)
 router.get('/searchCR', searchController.ClientAndRieltor)
 router.get('/searchEstate', searchController.estate)
+
+//Offer
+
+router.get('/offer', offerController.offerView)
+
+// router.get('/offerClient', offerController.addOfferView)
+// router.post('/addOfferAction', offerController.addOffer)
+
+// router.post('/deleteOfferAction/:id', offerController.deleteOffer)
+
+// router.get('/editOfferView/:id', offerController.editOfferView)
+// router.post('/editOffer/:id', offerController.editOffer)
 
 module.exports = router

@@ -1,0 +1,30 @@
+<a class="addClient" href="/addOffer">Добавить новое предложение</a>
+
+<table class="table table-bordered">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Клиент</th>
+      <th scope="col">Риелтор</th>
+      <th scope="col">Объект недвижимости</th>
+      <th scope="col">Цена</th>
+      <th scope="col">Действия</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {{#each rows}}
+    <tr>
+      <td>{{this.client}}</td>
+      <td>{{this.rieltor}}</td>
+      <td>{{this.estate}}</td>
+      <td>{{this.price}}</td>
+      <td>
+        <a href="/editOfferView/{{this.id}}" type="button">Изменить</a>
+        <form class="row g-3 needs-validation" method="POST" action="/deleteOfferAction/{{this.id}}" novalidate>
+            <button class="noButton" type="submit">Удаление</button>
+        </form>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
