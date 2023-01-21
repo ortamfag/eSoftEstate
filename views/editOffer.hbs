@@ -1,0 +1,89 @@
+{{#if alertSuccess}}
+<div class="alert alert-success d-flex align-items-center" role="alert">
+    {{alertSuccess}}
+</div>
+{{/if}}
+
+{{#if alert}}
+<div class="alert alert-danger d-flex align-items-center" role="alert">
+    {{alert}}
+</div>
+{{/if}}
+
+<h2 style="margin-bottom: 20px;">Исходные данные предложения: </h2>
+
+{{#each rows}}
+<div class="user-form">
+    <div class="editOfferStart">
+        <p><b>Клиент - </b></p>
+        <p>{{this.client}}</p>
+    </div>
+
+    <div class="editOfferStart">
+        <p><b>Риелтор - </b></p>
+        <p>{{this.rieltor}}</p>
+    </div>
+
+    <div class="editOfferStart">
+        <p><b>Недвижимость - </b></p>
+        <p>{{this.estate}}</p>
+    </div>
+
+    <div class="editOfferStart">
+        <p><b>Цена - </b></p>
+        <p>{{this.price}}</p>
+    </div>
+</div>
+
+<h2 style="margin-top: 20px;">Измененные данные предложения: </h2>
+
+<form class="row g-3 needs-validation" method="POST" action="/editOffer/{{this.id}}" novalidate>
+{{/each}}
+    <div class="user-form">
+        <div class="form__input">
+            <label class="user-form-label" for="OfferDropdownClient">Клиент</label>
+            <select id="OfferDropdown" name="OfferDropdownClient">
+                {{#each client}}
+                    <option value="{{this.id}}">{{this.firstName}} {{this.lastName}}</option>
+                {{/each}}
+            </select>
+        </div>
+
+        <div class="form__input">
+            <label class="user-form-label" for="OfferDropdownRieltor">Риелтор</label>
+            <select id="OfferDropdown" name="OfferDropdownRieltor">
+                {{#each rieltor}}
+                    <option value="{{this.id}}">{{this.firstName}} {{this.lastName}}</option>
+                {{/each}}
+            </select>
+        </div>
+
+        <div class="form__input">
+            <label class="user-form-label" for="OfferDropdownEstate">Недвижимость</label>
+            <select id="OfferDropdown" name="OfferDropdownEstate">
+                {{#each flatEstate}}
+                    <option value="flat{{this.id}}">Квартира - {{this.city}} {{this.street}} {{this.entranceNumber}} {{this.flatNumber}} {{this.space}}м2</option>
+                {{/each}}
+
+                {{#each houseEstate}}
+                    <option value="house{{this.id}}">Дом - {{this.city}} {{this.street}} {{this.entranceNumber}} {{this.flatNumber}} {{this.space}}м2</option>
+                {{/each}}
+
+                {{#each territoryEstate}}
+                    <option value="territory{{this.id}}">Земля - {{this.city}} {{this.street}} {{this.entranceNumber}} {{this.space}}м2</option>
+                {{/each}}
+            </select>
+        </div>
+
+        <div class="form__input">
+            <label class="user-form-label" for="floatingInput">Цена</label>
+            <input type="text" class="form-control" id="floatingInput" value="{{this.price}}" placeholder="Цена в рублях"
+                name="price">
+        </div>
+
+    </div>
+
+    <div class="col-12">
+        <button class="btn btn-primary" type="submit">Добавить</button>
+    </div>
+</form>

@@ -72,9 +72,9 @@ router.get('/offer', offerController.offerView)
 router.get('/addOffer', offerController.addOfferView)
 router.post('/addOfferAction', offerController.addOffer)
 
-// router.post('/deleteOfferAction/:id', offerController.deleteOffer)
+router.post('/deleteOfferAction/:id', offerController.deleteOffer)
 
-// router.get('/editOfferView/:id', offerController.editOfferView)
-// router.post('/editOffer/:id', offerController.editOffer)
+router.get('/editOfferView/:id', offerController.editOfferView)
+router.post('/editOffer/:id', offerController.editOffer)
 
 module.exports = router

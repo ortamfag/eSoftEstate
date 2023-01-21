@@ -114,10 +114,270 @@ exports.addOfferView = (req, res) => {
 exports.addOffer = (req, res) => {
     const {OfferDropdownClient, OfferDropdownRieltor, OfferDropdownEstate, price} = req.body
 
-    console.log(OfferDropdownClient)
-    console.log(OfferDropdownRieltor)
-    console.log(OfferDropdownEstate)
-    console.log(price)
+    pool.getConnection((err, connection) => {
+        if (err) throw err; //not connected
+        console.log('Connected as ID' + connection.threadId)
+
+        connection.query('SELECT * FROM client WHERE ID = ?', [OfferDropdownClient], (err, client) => {
+            connection.release();
+
+            if (!err) {
+                pool.getConnection((err, connection) => {
+                    if (err) throw err; //not connected
+                    console.log('Connected as ID' + connection.threadId)
+            
+                    connection.query('SELECT * FROM rieltor WHERE ID = ?', [OfferDropdownRieltor], (err, rieltor) => {
+                        connection.release();
+            
+                        if (!err) {
+                            const whatType = OfferDropdownEstate.replace(/[0-9]/g, '')
+                            const estateID = OfferDropdownEstate.replace(/\D+/g, "")
+
+                            client = client[0].lastName + ' ' + client[0].firstName + ' ' + client[0].patronymic
+                            rieltor = rieltor[0].lastName + ' ' + rieltor[0].firstName + ' ' + rieltor[0].patronymic
+
+                            switch(whatType) {
+                                case 'flat':
+                                    pool.getConnection((err, connection) => {
+                                        if (err) throw err; //not connected
+                                        console.log('Connected as ID' + connection.threadId)
+                                
+                                        connection.query('SELECT * FROM flat WHERE ID = ?', [estateID], (err, estate) => {
+                                            connection.release();
+                                            
+                                            estate = estate[0].city + ' ' + estate[0].street + ' ' + estate[0].entranceNumber + ' ' + estate[0].flatNumber
+                                
+                                            if (!err) {
+                                                pool.getConnection((err, connection) => {
+                                                    if (err) throw err; //not connected
+                                                    console.log('Connected as ID' + connection.threadId)
+                                                
+                                                    connection.query('INSERT INTO offer SET client = ?, rieltor = ?, estate = ?, price = ?', [client, rieltor, estate, price], (err, rows) => {
+                                                        connection.release();
+                                                
+                                                        if (!err) {
+                                                            res.render('addOffer', { alertSuccess: "Предложение зарегистрировано" })
+                                                        } else {
+                                                            console.log(err);
+                                                        }
+                                                    })
+                                                })
+                                            } else {
+                                                console.log(err);
+                                            }
+                                        })
+                                    })
+                                    break
+
+                                case 'house':
+                                    pool.getConnection((err, connection) => {
+                                        if (err) throw err; //not connected
+                                        console.log('Connected as ID' + connection.threadId)
+                                
+                                        connection.query('SELECT * FROM house WHERE ID = ?', [estateID], (err, estate) => {
+                                            connection.release();
+
+                                            estate = estate[0].city + ' ' + estate[0].street + ' ' + estate[0].entranceNumber + ' ' + estate[0].flatNumber
+                                
+                                            if (!err) {
+                                                pool.getConnection((err, connection) => {
+                                                    if (err) throw err; //not connected
+                                                    console.log('Connected as ID' + connection.threadId)
+                                                
+                                                    connection.query('INSERT INTO offer SET client = ?, rieltor = ?, estate = ?, price = ?', [client, rieltor, estate, price], (err, rows) => {
+                                                        connection.release();
+                                                
+                                                        if (!err) {
+                                                            res.render('addOffer', { alertSuccess: "Предложение зарегистрировано" })
+                                                        } else {
+                                                            console.log(err);
+                                                        }
+                                                    })
+                                                })
+                                            } else {
+                                                console.log(err);
+                                            }
+                                        })
+                                    })
+                                    break
+
+                                case 'territory':
+                                    pool.getConnection((err, connection) => {
+                                        if (err) throw err; //not connected
+                                        console.log('Connected as ID' + connection.threadId)
+                                
+                                        connection.query('SELECT * FROM territory WHERE ID = ?', [estateID], (err, estate) => {
+                                            connection.release();
+
+                                            estate = estate[0].city + ' ' + estate[0].street + ' ' + estate[0].entranceNumber + ' ' + estate[0].flatNumber
+                                
+                                            if (!err) {
+                                                pool.getConnection((err, connection) => {
+                                                    if (err) throw err; //not connected
+                                                    console.log('Connected as ID' + connection.threadId)
+                                                
+                                                    connection.query('INSERT INTO offer SET client = ?, rieltor = ?, estate = ?, price = ?', [client, rieltor, estate, price], (err, rows) => {
+                                                        connection.release();
+                                                
+                                                        if (!err) {
+                                                            res.render('addOffer', { alertSuccess: "Предложение зарегистрировано" })
+                                                        } else {
+                                                            console.log(err);
+                                                        }
+                                                    })
+                                                })
+                                            } else {
+                                                console.log(err);
+                                            }
+                                        })
+                                    })
+                                    break
+                            }
+                        } else {
+                            console.log(err);
+                        }
+                    })
+                })
+            } else {
+                console.log(err);
+            }
+        })
+    })
+}
+
+//Delete offer
+exports.deleteOffer = (req, res) => {
+    pool.getConnection((err, connection) => {
+        if (err) throw err; //not connected
+        console.log('Connected as ID' + connection.threadId)
+
+        // User the connection
+        connection.query('DELETE FROM offer WHERE id = ?', [req.params.id], (err, rows) => {
+            //when done with connection, release it
+            connection.release();
+
+            if (!err) {
+                pool.getConnection((err, connection) => {
+                    if (err) throw err; //not connected
+                    console.log('Connected as ID' + connection.threadId)
+            
+                    // User the connection
+                    connection.query('SELECT * FROM offer', (err, rows) => {
+                        //when done with connection, release it
+                        connection.release();
+            
+                        if (!err) {
+                            res.render('offer', { rows })
+                        } else {
+                            console.log(err);
+                        }
+                    })
+                })
+            } else {
+                console.log(err);
+            }
+        })
+    })
+}
+
+//Edit offer
+
+exports.editOfferView = (req, res) => {
+    pool.getConnection((err, connection) => {
+        if (err) throw err; //not connected
+        console.log('Connected as ID' + connection.threadId)
+
+        // User the connection
+        connection.query('SELECT * FROM offer WHERE id = ?', [req.params.id], (err, rows) => {
+            //when done with connection, release it
+            connection.release();
+
+            if (!err) {
+                pool.getConnection((err, connection) => {
+                    if (err) throw err; //not connected
+                    console.log('Connected as ID' + connection.threadId)
+            
+                    // User the connection
+                    connection.query('SELECT * FROM client', (err, client) => {
+                        //when done with connection, release it
+                        connection.release();
+            
+                        if (!err) {
+                            pool.getConnection((err, connection) => {
+                                if (err) throw err; //not connected
+                                console.log('Connected as ID' + connection.threadId)
+                        
+                                // User the connection
+                                connection.query('SELECT * FROM rieltor', (err, rieltor) => {
+                                    //when done with connection, release it
+                                    connection.release();
+                        
+                                    if (!err) {
+                                        pool.getConnection((err, connection) => {
+                                            if (err) throw err; //not connected
+                                            console.log('Connected as ID' + connection.threadId)
+                                    
+                                            // User the connection
+                                            connection.query('SELECT * FROM flat', (err, flatEstate) => {
+                                                //when done with connection, release it
+                                                connection.release();
+                                    
+                                                if (!err) {
+                                                    pool.getConnection((err, connection) => {
+                                                        if (err) throw err; //not connected
+                                                        console.log('Connected as ID' + connection.threadId)
+                                                
+                                                        // User the connection
+                                                        connection.query('SELECT * FROM house', (err, houseEstate) => {
+                                                            //when done with connection, release it
+                                                            connection.release();
+                                                
+                                                            if (!err) {
+                                                                pool.getConnection((err, connection) => {
+                                                                    if (err) throw err; //not connected
+                                                                    console.log('Connected as ID' + connection.threadId)
+                                                            
+                                                                    // User the connection
+                                                                    connection.query('SELECT * FROM territory', (err, territoryEstate) => {
+                                                                        //when done with connection, release it
+                                                                        connection.release();
+                                                            
+                                                                        if (!err) {
+                                                                            res.render('editOffer', { rows, client, rieltor, flatEstate, houseEstate, territoryEstate })
+                                                                        } else {
+                                                                            console.log(err);
+                                                                        }
+                                                                    })
+                                                                })
+                                                            } else {
+                                                                console.log(err);
+                                                            }
+                                                        })
+                                                    })
+                                                } else {
+                                                    console.log(err);
+                                                }
+                                            })
+                                        })
+                                    } else {
+                                        console.log(err);
+                                    }
+                                })
+                            })
+                        } else {
+                            console.log(err);
+                        }
+                    })
+                })
+            } else {
+                console.log(err);
+            }
+        })
+    })
+}
+
+exports.editOffer = (req, res) => {
+    const {OfferDropdownClient, OfferDropdownRieltor, OfferDropdownEstate, price} = req.body
 
     pool.getConnection((err, connection) => {
         if (err) throw err; //not connected
@@ -136,6 +396,10 @@ exports.addOffer = (req, res) => {
             
                         if (!err) {
                             const whatType = OfferDropdownEstate.replace(/[0-9]/g, '')
+                            const estateID = OfferDropdownEstate.replace(/\D+/g, "")
+
+                            client = client[0].lastName + ' ' + client[0].firstName + ' ' + client[0].patronymic
+                            rieltor = rieltor[0].lastName + ' ' + rieltor[0].firstName + ' ' + rieltor[0].patronymic
 
                             switch(whatType) {
                                 case 'flat':
@@ -143,115 +407,135 @@ exports.addOffer = (req, res) => {
                                         if (err) throw err; //not connected
                                         console.log('Connected as ID' + connection.threadId)
                                 
-                                        connection.query('SELECT * FROM rieltor WHERE ID = ?', [OfferDropdownRieltor], (err, estate) => {
+                                        connection.query('SELECT * FROM flat WHERE ID = ?', [estateID], (err, estate) => {
                                             connection.release();
+                                            
+                                            estate = estate[0].city + ' ' + estate[0].street + ' ' + estate[0].entranceNumber + ' ' + estate[0].flatNumber
                                 
                                             if (!err) {
-                                                const whatType = OfferDropdownEstate.replace(/[0-9]/g, '')
-                                                const estateID = OfferDropdownEstate.replace(/\D+/g, "")
-
-                                                console.log(whatType)
-                                                console.log(estateID)
-                    
-                                                switch(whatType) {
-                                                    case 'flat':
-                                                        pool.getConnection((err, connection) => {
-                                                            if (err) throw err; //not connected
-                                                            console.log('Connected as ID' + connection.threadId)
-                                                    
-                                                            connection.query('SELECT * FROM flat WHERE ID = ?', [estateID], (err, estate) => {
-                                                                connection.release();
-                                                                console.log(estate)
-                                                    
-                                                                if (!err) {
-                                                                    pool.getConnection((err, connection) => {
-                                                                        if (err) throw err; //not connected
-                                                                        console.log('Connected as ID' + connection.threadId)
-                                                                    
-                                                                        connection.query('INSERT INTO offer SET client = ?, rieltor = ?, estate = ?, price = ?', [client, rieltor, estate, price], (err, rows) => {
-                                                                            connection.release();
-                                                                    
-                                                                            if (!err) {
-                                                                                res.render('addOffer', { alertSuccess: "Предложение зарегистрировано" })
-                                                                            } else {
-                                                                                console.log(err);
-                                                                            }
-                                                                        })
-                                                                    })
-                                                                } else {
-                                                                    console.log(err);
-                                                                }
+                                                pool.getConnection((err, connection) => {
+                                                    if (err) throw err; //not connected
+                                                    console.log('Connected as ID' + connection.threadId)
+                                                
+                                                    connection.query('UPDATE offer SET client = ?, rieltor = ?, estate = ?, price = ? WHERE id = ?', [client, rieltor, estate, price, req.params.id], (err, rows) => {
+                                                        connection.release();
+                                                
+                                                        if (!err) {
+                                                            pool.getConnection((err, connection) => {
+                                                                if (err) throw err; //not connected
+                                                                console.log('Connected as ID' + connection.threadId)
+                                                            
+                                                                connection.query('SELECT * FROM offer WHERE ID = ?', [req.params.id], (err, rows) => {
+                                                                    connection.release();
+                                                            
+                                                                    if (!err) {
+                                                                        res.render('editOffer', { rows, client, rieltor, estate, price, alertSuccess: "Предложение изменено" })
+                                                                    } else {
+                                                                        console.log(err);
+                                                                    }
+                                                                })
                                                             })
-                                                        })
-                                                        break
-
-                                                    case 'house':
-                                                        pool.getConnection((err, connection) => {
-                                                            if (err) throw err; //not connected
-                                                            console.log('Connected as ID' + connection.threadId)
-                                                    
-                                                            connection.query('SELECT * FROM house WHERE ID = ?', [estateID], (err, estate) => {
-                                                                connection.release();
-                                                    
-                                                                if (!err) {
-                                                                    pool.getConnection((err, connection) => {
-                                                                        if (err) throw err; //not connected
-                                                                        console.log('Connected as ID' + connection.threadId)
-                                                                    
-                                                                        connection.query('INSERT INTO offer SET client = ?, rieltor = ?, estate = ?, price = ?', [client, rieltor, estate, price], (err, rows) => {
-                                                                            connection.release();
-                                                                    
-                                                                            if (!err) {
-                                                                                res.render('addOffer', { alertSuccess: "Предложение зарегистрировано" })
-                                                                            } else {
-                                                                                console.log(err);
-                                                                            }
-                                                                        })
-                                                                    })
-                                                                } else {
-                                                                    console.log(err);
-                                                                }
-                                                            })
-                                                        })
-                                                        break
-
-                                                    case 'territory':
-                                                        pool.getConnection((err, connection) => {
-                                                            if (err) throw err; //not connected
-                                                            console.log('Connected as ID' + connection.threadId)
-                                                    
-                                                            connection.query('SELECT * FROM territory WHERE ID = ?', [estateID], (err, estate) => {
-                                                                connection.release();
-                                                    
-                                                                if (!err) {
-                                                                    pool.getConnection((err, connection) => {
-                                                                        if (err) throw err; //not connected
-                                                                        console.log('Connected as ID' + connection.threadId)
-                                                                    
-                                                                        connection.query('INSERT INTO offer SET client = ?, rieltor = ?, estate = ?, price = ?', [client, rieltor, estate, price], (err, rows) => {
-                                                                            connection.release();
-                                                                    
-                                                                            if (!err) {
-                                                                                res.render('addOffer', { alertSuccess: "Предложение зарегистрировано" })
-                                                                            } else {
-                                                                                console.log(err);
-                                                                            }
-                                                                        })
-                                                                    })
-                                                                } else {
-                                                                    console.log(err);
-                                                                }
-                                                            })
-                                                        })
-                                                        break
-                                                        
-                                                }
+                                                        } else {
+                                                            console.log(err);
+                                                        }
+                                                    })
+                                                })
                                             } else {
                                                 console.log(err);
                                             }
                                         })
                                     })
+                                    break
 
+                                case 'house':
+                                    pool.getConnection((err, connection) => {
+                                        if (err) throw err; //not connected
+                                        console.log('Connected as ID' + connection.threadId)
+                                
+                                        connection.query('SELECT * FROM house WHERE ID = ?', [estateID], (err, estate) => {
+                                            connection.release();
+
+                                            estate = estate[0].city + ' ' + estate[0].street + ' ' + estate[0].entranceNumber + ' ' + estate[0].flatNumber
+                                
+                                            if (!err) {
+                                                pool.getConnection((err, connection) => {
+                                                    if (err) throw err; //not connected
+                                                    console.log('Connected as ID' + connection.threadId)
+                                                
+                                                    connection.query('UPDATE offer SET client = ?, rieltor = ?, estate = ?, price = ? WHERE id = ?', [client, rieltor, estate, price, req.params.id], (err, rows) => {
+                                                        connection.release();
+                                                
+                                                        if (!err) {
+                                                            pool.getConnection((err, connection) => {
+                                                                if (err) throw err; //not connected
+                                                                console.log('Connected as ID' + connection.threadId)
+                                                            
+                                                                connection.query('SELECT * FROM offer WHERE ID = ?', [req.params.id], (err, rows) => {
+                                                                    connection.release();
+                                                            
+                                                                    if (!err) {
+                                                                        res.render('editOffer', { rows, client, rieltor, estate, price, alertSuccess: "Предложение изменено" })
+                                                                    } else {
+                                                                        console.log(err);
+                                                                    }
+                                                                })
+                                                            })
+                                                        } else {
+                                                            console.log(err);
+                                                        }
+                                                    })
+                                                })
+                                            } else {
+                                                console.log(err);
+                                            }
+                                        })
+                                    })
+                                    break
+
+                                case 'territory':
+                                    pool.getConnection((err, connection) => {
+                                        if (err) throw err; //not connected
+                                        console.log('Connected as ID' + connection.threadId)
+                                
+                                        connection.query('SELECT * FROM territory WHERE ID = ?', [estateID], (err, estate) => {
+                                            connection.release();
+
+                                            estate = estate[0].city + ' ' + estate[0].street + ' ' + estate[0].entranceNumber + ' ' + estate[0].flatNumber
+                                
+                                            if (!err) {
+                                                pool.getConnection((err, connection) => {
+                                                    if (err) throw err; //not connected
+                                                    console.log('Connected as ID' + connection.threadId)
+                                                
+                                                    connection.query('UPDATE offer SET client = ?, rieltor = ?, estate = ?, price = ? WHERE id = ?', [client, rieltor, estate, price, req.params.id], (err, rows) => {
+                                                        connection.release();
+                                                
+                                                        if (!err) {
+                                                            pool.getConnection((err, connection) => {
+                                                                if (err) throw err; //not connected
+                                                                console.log('Connected as ID' + connection.threadId)
+                                                            
+                                                                connection.query('SELECT * FROM offer WHERE ID = ?', [req.params.id], (err, rows) => {
+                                                                    connection.release();
+                                                            
+                                                                    if (!err) {
+                                                                        res.render('editOffer', { rows, client, rieltor, estate, price, alertSuccess: "Предложение изменено" })
+                                                                    } else {
+                                                                        console.log(err);
+                                                                    }
+                                                                })
+                                                            })
+                                                        } else {
+                                                            console.log(err);
+                                                        }
+                                                    })
+                                                })
+                                            } else {
+                                                console.log(err);
+                                            }
+                                        })
+                                    })
+                                    break
                             }
                         } else {
                             console.log(err);
@@ -264,97 +548,3 @@ exports.addOffer = (req, res) => {
         })
     })
 }
-
-// //Delete client
-// exports.deleteClient = (req, res) => {
-//     pool.getConnection((err, connection) => {
-//         if (err) throw err; //not connected
-//         console.log('Connected as ID' + connection.threadId)
-
-//         // User the connection
-//         connection.query('DELETE FROM client WHERE id = ?', [req.params.id], (err, rows) => {
-//             //when done with connection, release it
-//             connection.release();
-
-//             if (!err) {
-//                 pool.getConnection((err, connection) => {
-//                     if (err) throw err; //not connected
-//                     console.log('Connected as ID' + connection.threadId)
-            
-//                     // User the connection
-//                     connection.query('SELECT * FROM client', (err, rows) => {
-//                         //when done with connection, release it
-//                         connection.release();
-            
-//                         if (!err) {
-//                             res.render('client', { rows })
-//                         } else {
-//                             console.log(err);
-//                         }
-//                     })
-//                 })
-//             } else {
-//                 console.log(err);
-//             }
-//         })
-//     })
-// }
-
-// //Edit client
-
-// exports.editClientView = (req, res) => {
-//     pool.getConnection((err, connection) => {
-//         if (err) throw err; //not connected
-//         console.log('Connected as ID' + connection.threadId)
-
-//         // User the connection
-//         connection.query('SELECT * FROM client WHERE id = ?', [req.params.id], (err, rows) => {
-//             //when done with connection, release it
-//             connection.release();
-
-//             if (!err) {
-//                 res.render('editClient', { rows })
-//             } else {
-//                 console.log(err);
-//             }
-//         })
-//     })
-// }
-
-// exports.editClient = (req, res) => {
-//     const {firstName, lastName, patronymic, email, phone} = req.body
-
-//     console.log(phone)
-
-//     pool.getConnection((err, connection) => {
-//         if (err) throw err; //not connected
-//         console.log('Connected as ID' + connection.threadId)
-
-//         // User the connection
-//         connection.query('UPDATE client SET firstName = ?, lastName = ?, patronymic = ?, email = ?, phone = ? WHERE ID = ?', [firstName, lastName, patronymic, email, phone, req.params.id], (err, rows) => {
-//             //when done with connection, release it
-//             connection.release();
-
-//             if (!err) {
-//                 pool.getConnection((err, connection) => {
-//                     if (err) throw err; //not connected
-//                     console.log('Connected as ID' + connection.threadId)
-            
-//                     // User the connection
-//                     connection.query('SELECT * FROM client WHERE ID = ?', [req.params.id], (err, rows) => {
-//                         //when done with connection, release it
-//                         connection.release();
-            
-//                         if (!err) {
-//                             res.render('editClient', { rows, alert: `${firstName} обновлен` })
-//                         } else {
-//                             console.log(err);
-//                         }
-//                     })
-//                 })
-//             } else {
-//                 console.log(err);
-//             }
-//         })
-//     })
-// }

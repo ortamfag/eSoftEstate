@@ -1,0 +1,15 @@
+.editOfferStart{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    & p:nth-child(1) {
+        min-width: 180px;
+        text-align: right;
+        margin-right: 20px;
+    }
+
+    & p:nth-child(2) {
+        width: 400px 
+    }
+}
