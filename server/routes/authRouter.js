@@ -69,8 +69,8 @@ router.get('/searchEstate', searchController.estate)
 
 router.get('/offer', offerController.offerView)
 
-// router.get('/offerClient', offerController.addOfferView)
-// router.post('/addOfferAction', offerController.addOffer)
+router.get('/addOffer', offerController.addOfferView)
+router.post('/addOfferAction', offerController.addOffer)
 
 // router.post('/deleteOfferAction/:id', offerController.deleteOffer)
 
