@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Янв 17 2023 г., 14:31
+-- Время создания: Янв 21 2023 г., 19:18
 -- Версия сервера: 10.4.25-MariaDB
 -- Версия PHP: 8.1.10
 
@@ -33,17 +33,18 @@ CREATE TABLE `client` (
   `firstName` text DEFAULT NULL,
   `patronymic` text DEFAULT NULL,
   `phone` text NOT NULL,
-  `email` text NOT NULL
+  `email` text NOT NULL,
+  `isBusy` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Дамп данных таблицы `client`
 --
 
-INSERT INTO `client` (`id`, `lastName`, `firstName`, `patronymic`, `phone`, `email`) VALUES
-(1, NULL, NULL, NULL, '', ''),
-(2, 'Тургенев', 'Степан', 'Егорович', '89348244359', 'stepan62@hotmail.com'),
-(3, 'Капп', 'Анна', 'Петровна', '89691726451', 'anna1993@mail.ru');
+INSERT INTO `client` (`id`, `lastName`, `firstName`, `patronymic`, `phone`, `email`, `isBusy`) VALUES
+(1, 'Проскуркина', 'Александра', 'Юлиановна', '89535731531', 'aleksandra.proskurkina@gmail.com', 0),
+(2, 'Тургенев', 'Степан', 'Егорович', '89348244359', 'stepan62@hotmail.com', 0),
+(3, 'Капп', 'Анна', 'Петровна', '89691726451', 'anna1993@mail.ru', 0);
 
 -- --------------------------------------------------------
 
@@ -70,7 +71,7 @@ CREATE TABLE `flat` (
 --
 
 INSERT INTO `flat` (`id`, `city`, `street`, `entranceNumber`, `flatNumber`, `latitude`, `longitude`, `floor`, `roomNumber`, `space`, `isBusy`) VALUES
-(5, 'Москва', 'Московская', 3, 213, 4, 123, 2, 4, 5, 0);
+(1, 'Moscow', 'Elektrozavodskaya', 2, 76, 46, -9, 6, 2, 46, 0);
 
 -- --------------------------------------------------------
 
@@ -97,7 +98,29 @@ CREATE TABLE `house` (
 --
 
 INSERT INTO `house` (`id`, `city`, `street`, `entranceNumber`, `flatNumber`, `latitude`, `longitude`, `floor`, `roomNumber`, `space`, `isBusy`) VALUES
-(1, 'Moscow', 'Moscowskaya', 5, 1, 46, -4, 3, 5, 130, 0);
+(1, 'Moscow', 'Moscowskaya', 4, 1, 46, -4, 3, 5, 130, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `offer`
+--
+
+CREATE TABLE `offer` (
+  `id` int(11) NOT NULL,
+  `client` text NOT NULL,
+  `rieltor` text NOT NULL,
+  `estate` text NOT NULL,
+  `price` int(11) NOT NULL,
+  `isBusy` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Дамп данных таблицы `offer`
+--
+
+INSERT INTO `offer` (`id`, `client`, `rieltor`, `estate`, `price`, `isBusy`) VALUES
+(1, 'Проскуркина Александра Юлиановна', 'Климов Николай Иванович', 'Квартира, Moscow Moscowskaya 4 1', 4000, 0);
 
 -- --------------------------------------------------------
 
@@ -145,7 +168,7 @@ CREATE TABLE `territory` (
 --
 
 INSERT INTO `territory` (`id`, `city`, `street`, `entranceNumber`, `flatNumber`, `latitude`, `longitude`, `space`, `isBusy`) VALUES
-(1, 'Moscow', 'Moscow oblast', 5, 1, 20, 59, 170, 0);
+(1, 'Moscow', 'Moscow oblast', 4, NULL, 20, 59, 170, 0);
 
 --
 -- Индексы сохранённых таблиц
@@ -170,6 +193,12 @@ ALTER TABLE `house`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Индексы таблицы `offer`
+--
+ALTER TABLE `offer`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Индексы таблицы `rieltor`
 --
 ALTER TABLE `rieltor`
@@ -189,19 +218,25 @@ ALTER TABLE `territory`
 -- AUTO_INCREMENT для таблицы `client`
 --
 ALTER TABLE `client`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT для таблицы `flat`
 --
 ALTER TABLE `flat`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT для таблицы `house`
 --
 ALTER TABLE `house`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT для таблицы `offer`
+--
+ALTER TABLE `offer`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT для таблицы `rieltor`
@@ -213,7 +248,7 @@ ALTER TABLE `rieltor`
 -- AUTO_INCREMENT для таблицы `territory`
 --
 ALTER TABLE `territory`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
