@@ -8,6 +8,7 @@ const searchController = require('../controllers/searchController')
 const estateController = require('../controllers/estateController')
 const offerController = require('../controllers/offerController')
 const requirementController = require('../controllers/requirementController')
+const dealController = require('../controllers/dealController')
 
 router.get('/', startController.start)
 
@@ -103,3 +104,11 @@ router.post('/editRequirement/house/:id', requirementController.editRequirementH
 
 router.get('/editRequirementView/territory/:id', requirementController.editRequirementTerritoryView)
 router.post('/editRequirement/territory/:id', requirementController.editRequirementTerritory)
+
+//deal
+//deal view
+router.get('/deal', dealController.dealView)
+
+//deal add
+router.get('/addDeal', dealController.addDealView)
+router.post('/addDealAction', dealController.addDeal)

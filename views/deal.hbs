@@ -1,0 +1,26 @@
+<a class="addClient" href="/addDeal">Добавить новую сделку</a>
+
+<table class="table table-bordered">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Потребность</th>
+      <th scope="col">Предложение</th>
+      <th scope="col">Действия</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {{#each rows}}
+    <tr>
+      <td>{{this.requirement}}</td>
+      <td>{{this.offer}}</td>
+      <td>
+        <a href="/editDealView/{{this.id}}" type="button">Изменить</a>
+        <form class="row g-3 needs-validation" method="POST" action="/deleteDealAction/{{this.id}}" novalidate>
+            <button class="noButton" type="submit">Удаление</button>
+        </form>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>

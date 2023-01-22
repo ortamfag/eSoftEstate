@@ -1,0 +1,51 @@
+{{#if alertSuccess}}
+<div class="alert alert-success d-flex align-items-center" role="alert">
+    {{alertSuccess}}
+</div>
+{{/if}}
+
+{{#if alertEmail}}
+<div class="alert alert-danger d-flex align-items-center" role="alert">
+    {{alertEmail}}
+</div>
+{{/if}}
+
+{{#if alertPhone}}
+<div class="alert alert-danger d-flex align-items-center" role="alert">
+    {{alertPhone}}
+</div>
+{{/if}}
+
+<form class="row g-3 needs-validation" method="POST" action="/addDealAction" novalidate>
+    <div class="user-form">
+        <div class="form__input">
+            <label class="user-form-label" for="OfferDropdownDeal">Предложения</label>
+            <select id="OfferDropdown" name="OfferDropdownDeal">
+                {{#each offer}}
+                <option value="{{this.id}}">{{this.client}}, {{this.estate}}, {{this.price}}₽</option>
+                {{/each}}
+            </select>
+        </div>
+
+        <div class="form__input">
+            <label class="user-form-label" for="OfferDropdownRequirement">Потребности</label>
+            <select id="OfferDropdown" name="OfferDropdownRequirement">
+                {{#each flat}}
+                <option value="flat{{this.id}}">{{this.client}}, Квартира - {{this.address}}, {{this.minPrice}} - {{this.maxPrice}}₽, {{this.minSpace}}м2 - {{this.maxSpace}}м2</option>
+                {{/each}}
+
+                {{#each house}}
+                <option value="house{{this.id}}">{{this.client}}, Дом - {{this.address}}, {{this.minPrice}} - {{this.maxPrice}}₽, {{this.minSpace}}м2 - {{this.maxSpace}}м2</option>
+                {{/each}}
+
+                {{#each territory}}
+                <option value="territory{{this.id}}">{{this.client}}, Земля - {{this.address}}, {{this.minPrice}} - {{this.maxPrice}}₽, {{this.minSpace}}м2 - {{this.maxSpace}}м2</option>
+                {{/each}}
+            </select>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <button class="btn btn-primary" type="submit">Добавить</button>
+    </div>
+</form>
