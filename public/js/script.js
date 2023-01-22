@@ -195,3 +195,42 @@ if (searchEstateButton != null) {
         })
     }
 }
+
+
+const OfferDropdownPrice = document.getElementById('OfferDropdownPrice')
+const OfferDropdownRequirement = document.getElementById('OfferDropdownRequirement')
+
+const priceCompanySell = document.getElementById('priceCompanySell')
+const priceCompanyBuy = document.getElementById('priceCompanyBuy')
+const priceCompanyRieltor = document.getElementById('priceCompanyRieltor')
+
+let companyPrice
+
+OfferDropdownPrice.addEventListener('change', () => {
+    let index = OfferDropdownPrice.selectedIndex 
+    let OfferDropdownPriceArr = OfferDropdownPrice.innerHTML.split('</option>')[index].split(' ')
+
+    companyPrice = OfferDropdownPriceArr[OfferDropdownPriceArr.length - 1]
+    companyPrice = companyPrice.replace(/\D+/g, "")
+    priceCompanyBuy.innerHTML = companyPrice * 0.03 + ' ₽'
+    priceCompanyRieltor.innerHTML = companyPrice * 0.45 + ' ₽'
+})
+
+OfferDropdownRequirement.addEventListener('change', () => {
+    let whatType = OfferDropdownRequirement.value.replace(/[0-9]/g, '')
+    if (companyPrice != null) {
+        switch(whatType) {
+            case 'flat':
+                priceCompanySell.innerHTML = 36000 + (companyPrice * 0.01) + ' ₽' 
+                break
+
+            case 'house':
+                priceCompanySell.innerHTML = 30000 + (companyPrice * 0.01) + ' ₽' 
+                break
+
+            case 'territory':
+                priceCompanySell.innerHTML = 30000 + (companyPrice * 0.02) + ' ₽' 
+                break
+        }
+    }
+})

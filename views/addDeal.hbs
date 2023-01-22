@@ -20,7 +20,7 @@
     <div class="user-form">
         <div class="form__input">
             <label class="user-form-label" for="OfferDropdownDeal">Предложения</label>
-            <select id="OfferDropdown" name="OfferDropdownDeal">
+            <select id="OfferDropdownPrice" name="OfferDropdownDeal">
                 {{#each offer}}
                 <option value="{{this.id}}">{{this.client}}, {{this.estate}}, {{this.price}}₽</option>
                 {{/each}}
@@ -29,7 +29,7 @@
 
         <div class="form__input">
             <label class="user-form-label" for="OfferDropdownRequirement">Потребности</label>
-            <select id="OfferDropdown" name="OfferDropdownRequirement">
+            <select id="OfferDropdownRequirement" name="OfferDropdownRequirement">
                 {{#each flat}}
                 <option value="flat{{this.id}}">{{this.client}}, Квартира - {{this.address}}, {{this.minPrice}} - {{this.maxPrice}}₽, {{this.minSpace}}м2 - {{this.maxSpace}}м2</option>
                 {{/each}}
@@ -48,7 +48,7 @@
     <h2 style="margin-bottom: 20px;">Отчисления и комиссии</h2>
     <p>Стоимость услуг компании для клиента-продавца: <span id="priceCompanySell"></span></p>
     <p>Стоимость услуг компании для клиента покупателя: <span id="priceCompanyBuy"></span></p>
-    <p>Стоимость услуг риэлтора: <span id="priceCompanyBuy"></span></p>
+    <p>Стоимость услуг риэлтора: <span id="priceCompanyRieltor"></span></p>
 
     <div class="col-12">
         <button class="btn btn-primary" type="submit">Добавить</button>
