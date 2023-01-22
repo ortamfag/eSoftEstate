@@ -1,0 +1,91 @@
+{{#if alertSuccess}}
+<div class="alert alert-success d-flex align-items-center" role="alert">
+    {{alertSuccess}}
+</div>
+{{/if}}
+
+{{#if alert}}
+<div class="alert alert-danger d-flex align-items-center" role="alert">
+    {{alert}}
+</div>
+{{/if}}
+
+
+<h2 style="margin-bottom: 20px;">Исходные данные потребности земли: </h2>
+
+{{#each rows}}
+<div class="user-form">
+    <div class="editOfferStart">
+        <p><b>Клиент - </b></p>
+        <p>{{this.client}}</p>
+    </div>
+
+    <div class="editOfferStart">
+        <p><b>Риелтор - </b></p>
+        <p>{{this.rieltor}}</p>
+    </div>
+</div>
+
+
+<h2 style="margin-top: 20px;">Измененные данные предложения земли: </h2>
+
+<form class="row g-3 needs-validation" method="POST" action="/editRequirement/territory/{{this.id}}" novalidate>
+{{/each}}
+    <div class="user-form">
+        <div class="form__input">
+            <label class="user-form-label user-form-label-big" for="OfferDropdownClient">Клиент</label>
+            <select id="OfferDropdown" name="OfferDropdownClient">
+                {{#each client}}
+                <option value="{{this.id}}">{{this.firstName}} {{this.lastName}}</option>
+                {{/each}}
+            </select>
+        </div>
+
+        <div class="form__input">
+            <label class="user-form-label user-form-label-big" for="OfferDropdownRieltor">Риелтор</label>
+            <select id="OfferDropdown" name="OfferDropdownRieltor">
+                {{#each rieltor}}
+                <option value="{{this.id}}">{{this.firstName}} {{this.lastName}}</option>
+                {{/each}}
+            </select>
+        </div>
+
+        {{#each rows}}
+
+        <div class="form__input">
+            <label class="user-form-label user-form-label-big" for="floatingInput">Минимальная цена</label>
+            <input type="text" class="form-control" id="floatingInput" value="{{this.minPrice}}"
+                placeholder="Минимальная цена" name="minPrice">
+        </div>
+
+        <div class="form__input">
+            <label class="user-form-label user-form-label-big" for="floatingInput">Максимальная цена</label>
+            <input type="text" class="form-control" id="floatingInput" value="{{this.maxPrice}}"
+                placeholder="Максимальная цена" name="maxPrice">
+        </div>
+
+        <div class="form__input">
+            <label class="user-form-label user-form-label-big" for="floatingInput">Адрес</label>
+            <input type="text" class="form-control" id="floatingInput" value="{{this.address}}" placeholder="Адрес"
+                name="address">
+        </div>
+
+        <div class="form__input">
+            <label class="user-form-label user-form-label-big" for="floatingInput">Минимальная площадь</label>
+            <input type="text" class="form-control" id="floatingInput" value="{{this.minSpace}}"
+                placeholder="Минимальная площадь" name="minSpace">
+        </div>
+
+        <div class="form__input">
+            <label class="user-form-label user-form-label-big" for="floatingInput">Максимальная площадь</label>
+            <input type="text" class="form-control" id="floatingInput" value="{{this.maxSpace}}"
+                placeholder="Максимальная площадь" name="maxSpace">
+        </div>
+        {{/each}}
+        
+    </div>
+
+    <div class="col-12">
+        <button class="btn btn-primary" type="submit">Изменить</button>
+    </div>
+</form>

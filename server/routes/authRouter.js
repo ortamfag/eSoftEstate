@@ -92,12 +92,12 @@ router.post('/deleteRequirementAction/flat/:id', requirementController.deleteReq
 router.post('/deleteRequirementAction/house/:id', requirementController.deleteRequirementHouse)
 router.post('/deleteRequirementAction/territory/:id', requirementController.deleteRequirementTerritory)
 
-// //Change requirement
-// router.get('/editRequirementView/flat/:id', requirementController.editRequirementFlatView)
-// router.post('/editRequirement/flat/:id', requirementController.editRequirementFlat)
+//Change requirement
+router.get('/editRequirementView/flat/:id', requirementController.editRequirementFlatView)
+router.post('/editRequirement/flat/:id', requirementController.editRequirementFlat)
 
-// router.get('/editRequirementView/house/:id', requirementController.editRequirementHouseView)
-// router.post('/editRequirement/house/:id', requirementController.editRequirementHouse)
+router.get('/editRequirementView/house/:id', requirementController.editRequirementHouseView)
+router.post('/editRequirement/house/:id', requirementController.editRequirementHouse)
 
-// router.get('/editRequirementView/territory/:id', requirementController.editRequirementTerritoryView)
-// router.post('/editRequirement/territory/:id', requirementController.editRequirementTerritory)
+router.get('/editRequirementView/territory/:id', requirementController.editRequirementTerritoryView)
+router.post('/editRequirement/territory/:id', requirementController.editRequirementTerritory)
