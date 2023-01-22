@@ -1,0 +1,129 @@
+<h1 style="margin-bottom: 20px">Участие в потребностях: </h1>
+
+<h2 style="margin-bottom: 20px">Квартиры</h2>
+<table class="table table-bordered">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Клиент</th>
+      <th scope="col">Риелтор</th>
+      <th scope="col">Мин.цена</th>
+      <th scope="col">Макс.цена</th>
+      <th scope="col">Адрес</th>
+      <th scope="col">Мин.площадь</th>
+      <th scope="col">Макс.площадь</th>
+      <th scope="col">Мин.комнат</th>
+      <th scope="col">Макс.комнат</th>
+      <th scope="col">Мин.этаж</th>
+      <th scope="col">Макс.этаж</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {{#each flat}}
+    <tr>
+      <td>{{this.client}}</td>
+      <td>{{this.rieltor}}</td>
+      <td>{{this.minPrice}}</td>
+      <td>{{this.maxPrice}}</td>
+      <td>{{this.address}}</td>
+      <td>{{this.minSpace}}</td>
+      <td>{{this.maxSpace}}</td>
+      <td>{{this.minRoom}}</td>
+      <td>{{this.maxRoom}}</td>
+      <td>{{this.minFloor}}</td>
+      <td>{{this.maxFloor}}</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+
+<h2 style="margin-bottom: 20px">Дома</h2>
+<table class="table table-bordered">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Клиент</th>
+      <th scope="col">Риелтор</th>
+      <th scope="col">Мин.цена</th>
+      <th scope="col">Макс.цена</th>
+      <th scope="col">Адрес</th>
+      <th scope="col">Мин.площадь</th>
+      <th scope="col">Макс.площадь</th>
+      <th scope="col">Мин.комнат</th>
+      <th scope="col">Макс.комнат</th>
+      <th scope="col">Мин.этаж</th>
+      <th scope="col">Макс.этаж</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {{#each house}}
+    <tr>
+      <td>{{this.client}}</td>
+      <td>{{this.rieltor}}</td>
+      <td>{{this.minPrice}}</td>
+      <td>{{this.maxPrice}}</td>
+      <td>{{this.address}}</td>
+      <td>{{this.minSpace}}</td>
+      <td>{{this.maxSpace}}</td>
+      <td>{{this.minRoom}}</td>
+      <td>{{this.maxRoom}}</td>
+      <td>{{this.minFloor}}</td>
+      <td>{{this.maxFloor}}</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+<h2 style="margin-bottom: 20px">Земля</h2>
+<table class="table table-bordered">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Клиент</th>
+      <th scope="col">Риелтор</th>
+      <th scope="col">Мин.цена</th>
+      <th scope="col">Макс.цена</th>
+      <th scope="col">Адрес</th>
+      <th scope="col">Мин.площадь</th>
+      <th scope="col">Макс.площадь</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {{#each territory}}
+    <tr>
+      <td>{{this.client}}</td>
+      <td>{{this.rieltor}}</td>
+      <td>{{this.minPrice}}</td>
+      <td>{{this.maxPrice}}</td>
+      <td>{{this.address}}</td>
+      <td>{{this.minSpace}}</td>
+      <td>{{this.maxSpace}}</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+<h1 style="margin-bottom: 20px">Участие в предложениях: </h1>
+
+<table class="table table-bordered">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Клиент</th>
+      <th scope="col">Риелтор</th>
+      <th scope="col">Объект недвижимости</th>
+      <th scope="col">Цена</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {{#each offer}}
+    <tr>
+      <td>{{this.client}}</td>
+      <td>{{this.rieltor}}</td>
+      <td>{{this.estate}}</td>
+      <td>{{this.price}}</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>

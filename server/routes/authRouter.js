@@ -13,6 +13,7 @@ router.get('/', startController.start)
 
 //Client view
 router.get('/client', clientController.clientView)
+router.get('/clientActivityView/:id', clientController.clientActivityView)
 
 //Add client
 router.get('/addClient', clientController.addClientView)
@@ -27,6 +28,7 @@ router.post('/editClient/:id', clientController.editClient)
 
 //Rieltor view
 router.get('/rieltor', rieltorController.rieltorView)
+router.get('/rieltorActivityView/:id', rieltorController.rieltorActivityView)
 
 //Add Rieltor
 router.get('/addRieltor', rieltorController.addRieltorView)

@@ -196,3 +196,92 @@ exports.editClient = (req, res) => {
         })
     })
 }
+
+exports.clientActivityView = (req, res) => {
+    pool.getConnection((err, connection) => {
+        if (err) throw err; //not connected
+        console.log('Connected as ID' + connection.threadId)
+
+        // User the connection
+        connection.query('SELECT * FROM client WHERE id = ?', [req.params.id], (err, client) => {
+            //when done with connection, release it
+            connection.release();
+
+            client = client[0].lastName + ' ' + client[0].firstName + ' ' + client[0].patronymic
+
+            if (!err) {
+                pool.getConnection((err, connection) => {
+                    if (err) throw err; //not connected
+                    console.log('Connected as ID' + connection.threadId)
+            
+                    // User the connection
+                    connection.query('SELECT * FROM requirement_flat WHERE client = ?', [client], (err, flat) => {
+                        //when done with connection, release it
+                        connection.release();
+            
+                        for (let i = 0; i <= flat.length - 1; i++) {
+                            if (flat[i].client !== client) {
+                                flat.splice(i, 1)
+                            }
+                        }
+            
+                        if (!err) {
+                            pool.getConnection((err, connection) => {
+                                if (err) throw err; //not connected
+                                console.log('Connected as ID' + connection.threadId)
+                        
+                                // User the connection
+                                connection.query('SELECT * FROM requirement_house WHERE client = ?', [client], (err, house) => {
+                                    //when done with connection, release it
+                                    connection.release();
+
+                        
+                                    if (!err) {
+                                        pool.getConnection((err, connection) => {
+                                            if (err) throw err; //not connected
+                                            console.log('Connected as ID' + connection.threadId)
+                                    
+                                            // User the connection
+                                            connection.query('SELECT * FROM requirement_territory WHERE client = ?', [client], (err, territory) => {
+                                                //when done with connection, release it
+                                                connection.release();
+                                                
+                                    
+                                                if (!err) {
+                                                    pool.getConnection((err, connection) => {
+                                                        if (err) throw err; //not connected
+                                                        console.log('Connected as ID' + connection.threadId)
+                                                
+                                                        // User the connection
+                                                        connection.query('SELECT * FROM offer WHERE client = ?', [client], (err, offer) => {
+                                                            //when done with connection, release it
+                                                            connection.release();
+                                                
+                                                            if (!err) {
+                                                                res.render('clientActivity', { flat, house, territory, offer })
+                                                            } else {
+                                                                console.log(err);
+                                                            }
+                                                        })
+                                                    })
+                                                } else {
+                                                    console.log(err);
+                                                }
+                                            })
+                                        })
+                                    } else {
+                                        console.log(err);
+                                    }
+                                })
+                            })
+                        } else {
+                            console.log(err);
+                        }
+                    })
+                })
+            } else {
+                console.log(err);
+            }
+        })
+    })
+}

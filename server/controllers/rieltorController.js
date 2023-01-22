@@ -174,3 +174,84 @@ exports.editRieltor = (req, res) => {
         })
     })
 }
+
+exports.rieltorActivityView = (req, res) => {
+    pool.getConnection((err, connection) => {
+        if (err) throw err; //not connected
+        console.log('Connected as ID' + connection.threadId)
+
+        // User the connection
+        connection.query('SELECT * FROM rieltor WHERE id = ?', [req.params.id], (err, client) => {
+            //when done with connection, release it
+            connection.release();
+
+            client = client[0].lastName + ' ' + client[0].firstName + ' ' + client[0].patronymic
+
+            if (!err) {
+                pool.getConnection((err, connection) => {
+                    if (err) throw err; //not connected
+                    console.log('Connected as ID' + connection.threadId)
+            
+                    // User the connection
+                    connection.query('SELECT * FROM requirement_flat WHERE rieltor = ?', [client], (err, flat) => {
+                        //when done with connection, release it
+                        connection.release();
+            
+                        if (!err) {
+                            pool.getConnection((err, connection) => {
+                                if (err) throw err; //not connected
+                                console.log('Connected as ID' + connection.threadId)
+                        
+                                // User the connection
+                                connection.query('SELECT * FROM requirement_house WHERE rieltor = ?', [client], (err, house) => {
+                                    //when done with connection, release it
+                                    connection.release();
+                        
+                                    if (!err) {
+                                        pool.getConnection((err, connection) => {
+                                            if (err) throw err; //not connected
+                                            console.log('Connected as ID' + connection.threadId)
+                                    
+                                            // User the connection
+                                            connection.query('SELECT * FROM requirement_territory WHERE rieltor = ?', [client], (err, territory) => {
+                                                //when done with connection, release it
+                                                connection.release();
+                                    
+                                                if (!err) {
+                                                    pool.getConnection((err, connection) => {
+                                                        if (err) throw err; //not connected
+                                                        console.log('Connected as ID' + connection.threadId)
+                                                
+                                                        // User the connection
+                                                        connection.query('SELECT * FROM offer WHERE rieltor = ?', [client], (err, offer) => {
+                                                            //when done with connection, release it
+                                                            connection.release();
+                                                
+                                                            if (!err) {
+                                                                res.render('rieltorActivity', { flat, house, territory, offer })
+                                                            } else {
+                                                                console.log(err);
+                                                            }
+                                                        })
+                                                    })
+                                                } else {
+                                                    console.log(err);
+                                                }
+                                            })
+                                        })
+                                    } else {
+                                        console.log(err);
+                                    }
+                                })
+                            })
+                        } else {
+                            console.log(err);
+                        }
+                    })
+                })
+            } else {
+                console.log(err);
+            }
+        })
+    })
+}
