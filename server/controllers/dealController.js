@@ -206,6 +206,86 @@ exports.addDeal = (req, res) => {
         if (err) throw err; //not connected
         console.log('Connected as ID' + connection.threadId)
 
+        connection.query('SELECT * FROM offer WHERE id = ?', [OfferDropdownDeal], (err, busy) => {
+            connection.release();
+
+            const client = busy[0].client.split(' ')
+
+            if (!err) {
+                pool.getConnection((err, connection) => {
+                    if (err) throw err; //not connected
+                    console.log('Connected as ID' + connection.threadId)
+            
+                    connection.query('SELECT * FROM client WHERE firstName = ? AND lastName = ? AND patronymic = ?', [client[1], client[0], client[2]], (err, client) => {
+                        connection.release();
+                        if (!err) {
+                            pool.getConnection((err, connection) => {
+                                if (err) throw err; //not connected
+                                console.log('Connected as ID' + connection.threadId)
+                        
+                                connection.query('UPDATE client SET isBusy = ? WHERE id = ?', [1, client[0].id], (err, busy) => {
+                                    connection.release();
+                                    if (!err) {
+                                    } else {
+                                        console.log(err);
+                                    }
+                                })
+                            })
+                        } else {
+                            console.log(err);
+                        }
+                    })
+                })
+            } else {
+                console.log(err);
+            }
+        })
+    })
+
+    pool.getConnection((err, connection) => {
+        if (err) throw err; //not connected
+        console.log('Connected as ID' + connection.threadId)
+
+        connection.query('SELECT * FROM offer WHERE id = ?', [OfferDropdownDeal], (err, busy) => {
+            connection.release();
+
+            const rieltor = busy[0].rieltor.split(' ')
+
+            if (!err) {
+                pool.getConnection((err, connection) => {
+                    if (err) throw err; //not connected
+                    console.log('Connected as ID' + connection.threadId)
+            
+                    connection.query('SELECT * FROM rieltor WHERE firstName = ? AND lastName = ? AND patronymic = ?', [rieltor[1], rieltor[0], rieltor[2]], (err, rieltor) => {
+                        connection.release();
+                        if (!err) {
+                            pool.getConnection((err, connection) => {
+                                if (err) throw err; //not connected
+                                console.log('Connected as ID' + connection.threadId)
+                        
+                                connection.query('UPDATE rieltor SET isBusy = ? WHERE id = ?', [1, rieltor[0].id], (err, busy) => {
+                                    connection.release();
+                                    if (!err) {
+                                    } else {
+                                        console.log(err);
+                                    }
+                                })
+                            })
+                        } else {
+                            console.log(err);
+                        }
+                    })
+                })
+            } else {
+                console.log(err);
+            }
+        })
+    })
+
+    pool.getConnection((err, connection) => {
+        if (err) throw err; //not connected
+        console.log('Connected as ID' + connection.threadId)
+
         connection.query('SELECT * FROM offer WHERE id = ?', [OfferDropdownDeal], (err, offerResult) => {
             connection.release();
 
@@ -213,7 +293,7 @@ exports.addDeal = (req, res) => {
                 const whatType = OfferDropdownRequirement.replace(/[0-9]/g, '')
                 const estateID = OfferDropdownRequirement.replace(/\D+/g, "")
 
-                switch(whatType) {
+                switch(whatType) { 
                     case 'flat':
                         pool.getConnection((err, connection) => {
                             if (err) throw err; //not connected
@@ -263,7 +343,20 @@ exports.addDeal = (req, res) => {
                                                                                             connection.release();
                                                                                 
                                                                                             if (!err) {
-                                                                                                res.render('addDeal', { offerResult, offer, flat, house, territory, alertSuccess: "Сделка зарегистрирована" })
+                                                                                                pool.getConnection((err, connection) => {
+                                                                                                    if (err) throw err; //not connected
+                                                                                                    console.log('Connected as ID' + connection.threadId)
+                                                                                            
+                                                                                                    connection.query('SELECT * FROM requirement_territory', (err, territory) => {
+                                                                                                        connection.release();
+                                                                                            
+                                                                                                        if (!err) {
+                                                                                                            res.render('addDeal', { offerResult, offer, flat, house, territory, alertSuccess: "Сделка зарегистрирована" })
+                                                                                                        } else {
+                                                                                                            console.log(err);
+                                                                                                        }
+                                                                                                    })
+                                                                                                })
                                                                                             } else {
                                                                                                 console.log(err);
                                                                                             }

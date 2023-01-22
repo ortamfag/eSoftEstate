@@ -90,27 +90,63 @@ exports.deleteRieltor = (req, res) => {
         console.log('Connected as ID' + connection.threadId)
 
         // User the connection
-        connection.query('DELETE FROM rieltor WHERE id = ?', [req.params.id], (err, rows) => {
+        connection.query('SELECT * FROM rieltor WHERE id = ?', [req.params.id], (err, busy) => {
             //when done with connection, release it
             connection.release();
 
             if (!err) {
-                pool.getConnection((err, connection) => {
-                    if (err) throw err; //not connected
-                    console.log('Connected as ID' + connection.threadId)
-            
-                    // User the connection
-                    connection.query('SELECT * FROM rieltor', (err, rows) => {
-                        //when done with connection, release it
-                        connection.release();
-            
-                        if (!err) {
-                            res.render('rieltor', { rows })
-                        } else {
-                            console.log(err);
-                        }
+                if (busy[0].isBusy != '1') {
+                    pool.getConnection((err, connection) => {
+                        if (err) throw err; //not connected
+                        console.log('Connected as ID' + connection.threadId)
+                
+                        // User the connection
+                        connection.query('DELETE FROM rieltor WHERE id = ?', [req.params.id], (err, rows) => {
+                            //when done with connection, release it
+                            connection.release();
+                
+                            if (!err) {
+                                pool.getConnection((err, connection) => {
+                                    if (err) throw err; //not connected
+                                    console.log('Connected as ID' + connection.threadId)
+                            
+                                    // User the connection
+                                    connection.query('SELECT * FROM rieltor', (err, rows) => {
+                                        //when done with connection, release it
+                                        connection.release();
+                            
+                                        if (!err) {
+                                            res.render('rieltor', { rows })
+                                        } else {
+                                            console.log(err);
+                                        }
+                                    })
+                                })
+                            } else {
+                                console.log(err);
+                            }
+                        })
                     })
-                })
+                    
+                } else {
+                    pool.getConnection((err, connection) => {
+                        if (err) throw err; //not connected
+                        console.log('Connected as ID' + connection.threadId)
+                
+                        // User the connection
+                        connection.query('SELECT * FROM rieltor', (err, rows) => {
+                            //when done with connection, release it
+                            connection.release();
+                
+                            if (!err) {
+                                res.render('rieltor', { rows, AlertDelete: "Риелтор участвует в сделке" })
+                            } else {
+                                console.log(err);
+                            }
+                        })
+                    })
+                }
+                
             } else {
                 console.log(err);
             }

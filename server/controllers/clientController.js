@@ -110,27 +110,61 @@ exports.deleteClient = (req, res) => {
         console.log('Connected as ID' + connection.threadId)
 
         // User the connection
-        connection.query('DELETE FROM client WHERE id = ?', [req.params.id], (err, rows) => {
+        connection.query('SELECT * FROM client WHERE id = ?', [req.params.id], (err, busy) => {
             //when done with connection, release it
             connection.release();
 
             if (!err) {
-                pool.getConnection((err, connection) => {
-                    if (err) throw err; //not connected
-                    console.log('Connected as ID' + connection.threadId)
-            
-                    // User the connection
-                    connection.query('SELECT * FROM client', (err, rows) => {
-                        //when done with connection, release it
-                        connection.release();
-            
-                        if (!err) {
-                            res.render('client', { rows })
-                        } else {
-                            console.log(err);
-                        }
+                if (busy[0].isBusy != '1') {
+                    pool.getConnection((err, connection) => {
+                        if (err) throw err; //not connected
+                        console.log('Connected as ID' + connection.threadId)
+                
+                        // User the connection
+                        connection.query('DELETE FROM client WHERE id = ?', [req.params.id], (err, rows) => {
+                            //when done with connection, release it
+                            connection.release();
+                
+                            if (!err) {
+                                pool.getConnection((err, connection) => {
+                                    if (err) throw err; //not connected
+                                    console.log('Connected as ID' + connection.threadId)
+                            
+                                    // User the connection
+                                    connection.query('SELECT * FROM client', (err, rows) => {
+                                        //when done with connection, release it
+                                        connection.release();
+                            
+                                        if (!err) {
+                                            res.render('client', { rows })
+                                        } else {
+                                            console.log(err);
+                                        }
+                                    })
+                                })
+                            } else {
+                                console.log(err);
+                            }
+                        })
                     })
-                })
+                } else {
+                    pool.getConnection((err, connection) => {
+                        if (err) throw err; //not connected
+                        console.log('Connected as ID' + connection.threadId)
+                
+                        // User the connection
+                        connection.query('SELECT * FROM client', (err, rows) => {
+                            //when done with connection, release it
+                            connection.release();
+                
+                            if (!err) {
+                                res.render('client', { rows, AlertDelete: "Клиент участвует в сделке" })
+                            } else {
+                                console.log(err);
+                            }
+                        })
+                    })
+                }
             } else {
                 console.log(err);
             }
