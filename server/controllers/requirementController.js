@@ -226,198 +226,199 @@ exports.addRequirement = (req, res) => {
         })
     })
 }
-// //Delete estate
-// exports.deleteEstateFlat = (req, res) => {
-//     pool.getConnection((err, connection) => {
-//         if (err) throw err; //not connected
-//         console.log('Connected as ID' + connection.threadId)
 
-//         // User the connection
-//         connection.query('DELETE FROM flat WHERE id = ?', [req.params.id], (err, rows) => {
-//             //when done with connection, release it
-//             connection.release();
+//Delete flat
+exports.deleteRequirementFlat = (req, res) => {
+    pool.getConnection((err, connection) => {
+        if (err) throw err; //not connected
+        console.log('Connected as ID' + connection.threadId)
 
-//             if (!err) {
-//                 pool.getConnection((err, connection) => {
-//                     if (err) throw err; //not connected
-//                     console.log('Connected as ID' + connection.threadId)
+        // User the connection
+        connection.query('DELETE FROM requirement_flat WHERE id = ?', [req.params.id], (err, rows) => {
+            //when done with connection, release it
+            connection.release();
+
+            if (!err) {
+                pool.getConnection((err, connection) => {
+                    if (err) throw err; //not connected
+                    console.log('Connected as ID' + connection.threadId)
             
-//                     // User the connection
-//                     connection.query('SELECT * FROM flat', (err, flat) => {
-//                         //when done with connection, release it
-//                         connection.release();
+                    // User the connection
+                    connection.query('SELECT * FROM requirement_flat', (err, flat) => {
+                        //when done with connection, release it
+                        connection.release();
             
-//                         if (!err) {
-//                             pool.getConnection((err, connection) => {
-//                                 if (err) throw err; //not connected
-//                                 console.log('Connected as ID' + connection.threadId)
+                        if (!err) {
+                            pool.getConnection((err, connection) => {
+                                if (err) throw err; //not connected
+                                console.log('Connected as ID' + connection.threadId)
                         
-//                                 // User the connection
-//                                 connection.query('SELECT * FROM house', (err, house) => {
-//                                     //when done with connection, release it
-//                                     connection.release();
+                                // User the connection
+                                connection.query('SELECT * FROM requirement_house', (err, house) => {
+                                    //when done with connection, release it
+                                    connection.release();
                         
-//                                     if (!err) {
-//                                         pool.getConnection((err, connection) => {
-//                                             if (err) throw err; //not connected
-//                                             console.log('Connected as ID' + connection.threadId)
+                                    if (!err) {
+                                        pool.getConnection((err, connection) => {
+                                            if (err) throw err; //not connected
+                                            console.log('Connected as ID' + connection.threadId)
                                     
-//                                             // User the connection
-//                                             connection.query('SELECT * FROM territory', (err, territory) => {
-//                                                 //when done with connection, release it
-//                                                 connection.release();
+                                            // User the connection
+                                            connection.query('SELECT * FROM requirement_territory', (err, territory) => {
+                                                //when done with connection, release it
+                                                connection.release();
                                     
-//                                                 if (!err) {
-//                                                     res.redirect('/estate')
-//                                                 } else {
-//                                                     console.log(err);
-//                                                 }
-//                                             })
-//                                         })
-//                                     } else {
-//                                         console.log(err);
-//                                     }
-//                                 })
-//                             })
-//                         } else {
-//                             console.log(err);
-//                         }
-//                     })
-//                 })
-//             } else {
-//                 console.log(err);
-//             }
-//         })
-//     })
-// }
+                                                if (!err) {
+                                                    res.redirect('/requirement')
+                                                } else {
+                                                    console.log(err);
+                                                }
+                                            })
+                                        })
+                                    } else {
+                                        console.log(err);
+                                    }
+                                })
+                            })
+                        } else {
+                            console.log(err);
+                        }
+                    })
+                })
+            } else {
+                console.log(err);
+            }
+        })
+    })
+}
 
-// exports.deleteEstateHouse = (req, res) => {
-//     pool.getConnection((err, connection) => {
-//         if (err) throw err; //not connected
-//         console.log('Connected as ID' + connection.threadId)
+exports.deleteRequirementTerritory = (req, res) => {
+    pool.getConnection((err, connection) => {
+        if (err) throw err; //not connected
+        console.log('Connected as ID' + connection.threadId)
 
-//         // User the connection
-//         connection.query('DELETE FROM house WHERE id = ?', [req.params.id], (err, rows) => {
-//             //when done with connection, release it
-//             connection.release();
+        // User the connection
+        connection.query('DELETE FROM requirement_territory WHERE id = ?', [req.params.id], (err, rows) => {
+            //when done with connection, release it
+            connection.release();
 
-//             if (!err) {
-//                 pool.getConnection((err, connection) => {
-//                     if (err) throw err; //not connected
-//                     console.log('Connected as ID' + connection.threadId)
+            if (!err) {
+                pool.getConnection((err, connection) => {
+                    if (err) throw err; //not connected
+                    console.log('Connected as ID' + connection.threadId)
             
-//                     // User the connection
-//                     connection.query('SELECT * FROM flat', (err, flat) => {
-//                         //when done with connection, release it
-//                         connection.release();
+                    // User the connection
+                    connection.query('SELECT * FROM requirement_flat', (err, flat) => {
+                        //when done with connection, release it
+                        connection.release();
             
-//                         if (!err) {
-//                             pool.getConnection((err, connection) => {
-//                                 if (err) throw err; //not connected
-//                                 console.log('Connected as ID' + connection.threadId)
+                        if (!err) {
+                            pool.getConnection((err, connection) => {
+                                if (err) throw err; //not connected
+                                console.log('Connected as ID' + connection.threadId)
                         
-//                                 // User the connection
-//                                 connection.query('SELECT * FROM house', (err, house) => {
-//                                     //when done with connection, release it
-//                                     connection.release();
+                                // User the connection
+                                connection.query('SELECT * FROM requirement_house', (err, house) => {
+                                    //when done with connection, release it
+                                    connection.release();
                         
-//                                     if (!err) {
-//                                         pool.getConnection((err, connection) => {
-//                                             if (err) throw err; //not connected
-//                                             console.log('Connected as ID' + connection.threadId)
+                                    if (!err) {
+                                        pool.getConnection((err, connection) => {
+                                            if (err) throw err; //not connected
+                                            console.log('Connected as ID' + connection.threadId)
                                     
-//                                             // User the connection
-//                                             connection.query('SELECT * FROM territory', (err, territory) => {
-//                                                 //when done with connection, release it
-//                                                 connection.release();
+                                            // User the connection
+                                            connection.query('SELECT * FROM requirement_territory', (err, territory) => {
+                                                //when done with connection, release it
+                                                connection.release();
                                     
-//                                                 if (!err) {
-//                                                     res.redirect('/estate')
-//                                                 } else {
-//                                                     console.log(err);
-//                                                 }
-//                                             })
-//                                         })
-//                                     } else {
-//                                         console.log(err);
-//                                     }
-//                                 })
-//                             })
-//                         } else {
-//                             console.log(err);
-//                         }
-//                     })
-//                 })
-//             } else {
-//                 console.log(err);
-//             }
-//         })
-//     })
-// }
+                                                if (!err) {
+                                                    res.redirect('/requirement')
+                                                } else {
+                                                    console.log(err);
+                                                }
+                                            })
+                                        })
+                                    } else {
+                                        console.log(err);
+                                    }
+                                })
+                            })
+                        } else {
+                            console.log(err);
+                        }
+                    })
+                })
+            } else {
+                console.log(err);
+            }
+        })
+    })
+}
 
-// exports.deleteEstateTerritory = (req, res) => {
-//     pool.getConnection((err, connection) => {
-//         if (err) throw err; //not connected
-//         console.log('Connected as ID' + connection.threadId)
+exports.deleteRequirementHouse = (req, res) => {
+    pool.getConnection((err, connection) => {
+        if (err) throw err; //not connected
+        console.log('Connected as ID' + connection.threadId)
 
-//         // User the connection
-//         connection.query('DELETE FROM territory WHERE id = ?', [req.params.id], (err, rows) => {
-//             //when done with connection, release it
-//             connection.release();
+        // User the connection
+        connection.query('DELETE FROM requirement_house WHERE id = ?', [req.params.id], (err, rows) => {
+            //when done with connection, release it
+            connection.release();
 
-//             if (!err) {
-//                 pool.getConnection((err, connection) => {
-//                     if (err) throw err; //not connected
-//                     console.log('Connected as ID' + connection.threadId)
+            if (!err) {
+                pool.getConnection((err, connection) => {
+                    if (err) throw err; //not connected
+                    console.log('Connected as ID' + connection.threadId)
             
-//                     // User the connection
-//                     connection.query('SELECT * FROM flat', (err, flat) => {
-//                         //when done with connection, release it
-//                         connection.release();
+                    // User the connection
+                    connection.query('SELECT * FROM requirement_flat', (err, flat) => {
+                        //when done with connection, release it
+                        connection.release();
             
-//                         if (!err) {
-//                             pool.getConnection((err, connection) => {
-//                                 if (err) throw err; //not connected
-//                                 console.log('Connected as ID' + connection.threadId)
+                        if (!err) {
+                            pool.getConnection((err, connection) => {
+                                if (err) throw err; //not connected
+                                console.log('Connected as ID' + connection.threadId)
                         
-//                                 // User the connection
-//                                 connection.query('SELECT * FROM house', (err, house) => {
-//                                     //when done with connection, release it
-//                                     connection.release();
+                                // User the connection
+                                connection.query('SELECT * FROM requirement_house', (err, house) => {
+                                    //when done with connection, release it
+                                    connection.release();
                         
-//                                     if (!err) {
-//                                         pool.getConnection((err, connection) => {
-//                                             if (err) throw err; //not connected
-//                                             console.log('Connected as ID' + connection.threadId)
+                                    if (!err) {
+                                        pool.getConnection((err, connection) => {
+                                            if (err) throw err; //not connected
+                                            console.log('Connected as ID' + connection.threadId)
                                     
-//                                             // User the connection
-//                                             connection.query('SELECT * FROM territory', (err, territory) => {
-//                                                 //when done with connection, release it
-//                                                 connection.release();
+                                            // User the connection
+                                            connection.query('SELECT * FROM requirement_territory', (err, territory) => {
+                                                //when done with connection, release it
+                                                connection.release();
                                     
-//                                                 if (!err) {
-//                                                     res.redirect('/estate')
-//                                                 } else {
-//                                                     console.log(err);
-//                                                 }
-//                                             })
-//                                         })
-//                                     } else {
-//                                         console.log(err);
-//                                     }
-//                                 })
-//                             })
-//                         } else {
-//                             console.log(err);
-//                         }
-//                     })
-//                 })
-//             } else {
-//                 console.log(err);
-//             }
-//         })
-//     })
-// }
+                                                if (!err) {
+                                                    res.redirect('/requirement')
+                                                } else {
+                                                    console.log(err);
+                                                }
+                                            })
+                                        })
+                                    } else {
+                                        console.log(err);
+                                    }
+                                })
+                            })
+                        } else {
+                            console.log(err);
+                        }
+                    })
+                })
+            } else {
+                console.log(err);
+            }
+        })
+    })
+}
 
 // //Edit Estate
 
