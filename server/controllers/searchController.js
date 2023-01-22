@@ -96,3 +96,33 @@ exports.estate = (req, res) => {
         })
     })
 }
+
+exports.deal = (req, res) => {
+    pool.getConnection((err, connection) => {
+        if (err) throw err; //not connected
+        console.log('Connected as ID' + connection.threadId)
+
+        // User the connection
+        connection.query('SELECT * FROM offer', (err, offer) => {
+            //when done with connection, release it
+            connection.release();
+
+            for (let i = 0; i < offer.length; i++) {
+                let estate = offer[i].estate.split(' ')
+                
+                offer[i].city = estate[0]
+                offer[i].street = estate[1]
+                offer[i].entranceNumber = estate[2]
+                offer[i].flatNumber = estate[3]
+
+                console.log(offer)
+            }
+
+            if (!err) {
+                res.render('searchDeal', { offer })
+            } else {
+                console.log(err);
+            }
+        })
+    })
+}

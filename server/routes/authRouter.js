@@ -68,6 +68,7 @@ router.post('/editEstate/territory/:id', estateController.editEstateTerritory)
 router.get('/search', searchController.search)
 router.get('/searchCR', searchController.ClientAndRieltor)
 router.get('/searchEstate', searchController.estate)
+router.get('/searchDeal', searchController.deal)
 
 //Offer
 
@@ -80,8 +81,6 @@ router.post('/deleteOfferAction/:id', offerController.deleteOffer)
 
 router.get('/editOfferView/:id', offerController.editOfferView)
 router.post('/editOffer/:id', offerController.editOffer)
-
-module.exports = router
 
 //Requirement
 router.get('/requirement', requirementController.requirementView)
@@ -112,3 +111,5 @@ router.get('/deal', dealController.dealView)
 //deal add
 router.get('/addDeal', dealController.addDealView)
 router.post('/addDealAction', dealController.addDeal)
+
+module.exports = router

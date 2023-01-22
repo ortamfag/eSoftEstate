@@ -1,0 +1,50 @@
+<div class="searchInput searchColumn">
+    <label for="searchCity">Город</label>
+    <input id="searchCityDeal" name="searchCity">
+
+    <br>
+
+    <label for="searchStreet">Улица</label>
+    <input id="searchStreetDeal" name="searchStreet">
+
+    <br>
+
+    <label for="searchEntranceNumber">Номер дома</label>
+    <input id="searchEntranceNumberDeal" name="searchEntranceNumber">
+
+    <br>
+
+    <label for="searchFlatNumber">Номер квартиры</label>
+    <input id="searchFlatNumberDeal" name="searchFlatNumber">
+
+    <br>
+    <button id="searchDealButton" class="btn">Поиск</button>
+</div>
+
+<div class="searchEnter"></div>
+
+<table class="table table-bordered">
+  <thead class="thead-dark">
+    <tr>
+        <th scope="col">Клиент</th>
+        <th scope="col">Риелтор</th>
+        <th scope="col">Город</th>
+        <th scope="col">Улица</th>
+        <th scope="col">Номер дома</th>
+        <th scope="col">Номер квартиры</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {{#each offer}}
+    <tr>
+        <td>{{this.client}}</td>
+        <td>{{this.rieltor}}</td>
+        <td class="searchDealCity">{{this.city}}</td>
+        <td class="searchDealStreet">{{this.street}}</td>
+        <td class="searchDealEntranceNumber">{{this.entranceNumber}}</td>
+        <td class="searchDealFlatNumber">{{this.flatNumber}}</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
