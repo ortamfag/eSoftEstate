@@ -1,0 +1,126 @@
+<a class="addClient" href="/addRequirement">Добавить новую потребность</a>
+
+<h1 style="margin-bottom: 20px">Квартиры</h1>
+<table class="table table-bordered">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Клиент</th>
+      <th scope="col">Риелтор</th>
+      <th scope="col">Мин.цена</th>
+      <th scope="col">Макс.цена</th>
+      <th scope="col">Адрес</th>
+      <th scope="col">Мин.площадь</th>
+      <th scope="col">Макс.площадь</th>
+      <th scope="col">Мин.комнат</th>
+      <th scope="col">Макс.комнат</th>
+      <th scope="col">Мин.этаж</th>
+      <th scope="col">Макс.этаж</th>
+      <th scope="col">Действия</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {{#each flat}}
+    <tr>
+      <td>{{this.client}}</td>
+      <td>{{this.rieltor}}</td>
+      <td>{{this.minPrice}}</td>
+      <td>{{this.maxPrice}}</td>
+      <td>{{this.address}}</td>
+      <td>{{this.minSpace}}</td>
+      <td>{{this.maxSpace}}</td>
+      <td>{{this.minRoom}}</td>
+      <td>{{this.maxRoom}}</td>
+      <td>{{this.minFloor}}</td>
+      <td>{{this.maxFloor}}</td>
+      <td>
+        <a href="/editRequirementView/flat/{{this.id}}" type="button">Изменить</a>
+        <form class="row g-3 needs-validation" method="POST" action="/deleteRequirementAction/flat/{{this.id}}" novalidate>
+            <button class="noButton" type="submit">Удаление</button>
+        </form>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+
+<h1 style="margin-bottom: 20px">Дома</h1>
+<table class="table table-bordered">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Клиент</th>
+      <th scope="col">Риелтор</th>
+      <th scope="col">Мин.цена</th>
+      <th scope="col">Макс.цена</th>
+      <th scope="col">Адрес</th>
+      <th scope="col">Мин.площадь</th>
+      <th scope="col">Макс.площадь</th>
+      <th scope="col">Мин.комнат</th>
+      <th scope="col">Макс.комнат</th>
+      <th scope="col">Мин.этаж</th>
+      <th scope="col">Макс.этаж</th>
+      <th scope="col">Действия</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {{#each house}}
+    <tr>
+      <td>{{this.client}}</td>
+      <td>{{this.rieltor}}</td>
+      <td>{{this.minPrice}}</td>
+      <td>{{this.maxPrice}}</td>
+      <td>{{this.address}}</td>
+      <td>{{this.minSpace}}</td>
+      <td>{{this.maxSpace}}</td>
+      <td>{{this.minRoom}}</td>
+      <td>{{this.maxRoom}}</td>
+      <td>{{this.minFloor}}</td>
+      <td>{{this.maxFloor}}</td>
+      <td>
+        <a href="/editRequirementView/house/{{this.id}}" type="button">Изменить</a>
+        <form class="row g-3 needs-validation" method="POST" action="/deleteRequirementAction/house/{{this.id}}" novalidate>
+            <button class="noButton" type="submit">Удаление</button>
+        </form>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+<h1 style="margin-bottom: 20px">Земля</h1>
+<table class="table table-bordered">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Клиент</th>
+      <th scope="col">Риелтор</th>
+      <th scope="col">Мин.цена</th>
+      <th scope="col">Макс.цена</th>
+      <th scope="col">Адрес</th>
+      <th scope="col">Мин.площадь</th>
+      <th scope="col">Макс.площадь</th>
+      <th scope="col">Действия</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {{#each territory}}
+    <tr>
+      <td>{{this.client}}</td>
+      <td>{{this.rieltor}}</td>
+      <td>{{this.minPrice}}</td>
+      <td>{{this.maxPrice}}</td>
+      <td>{{this.address}}</td>
+      <td>{{this.minSpace}}</td>
+      <td>{{this.maxSpace}}</td>
+      <td>
+        <a href="/editRequirementView/territory/{{this.id}}" type="button">Изменить</a>
+        <form class="row g-3 needs-validation" method="POST" action="/deleteRequirementAction/territory/{{this.id}}" novalidate>
+            <button class="noButton" type="submit">Удаление</button>
+        </form>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>

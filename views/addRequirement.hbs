@@ -1,0 +1,133 @@
+{{#if alertSuccess}}
+<div class="alert alert-success d-flex align-items-center" role="alert">
+    {{alertSuccess}}
+</div>
+{{/if}}
+
+{{#if alert}}
+<div class="alert alert-danger d-flex align-items-center" role="alert">
+    {{alert}}
+</div>
+{{/if}}
+
+
+<form class="row g-3 needs-validation" method="POST" action="/addRequirementAction" novalidate>
+    <div class="user-form">
+        <div class="form__input">
+            <label class="user-form-label user-form-label-big" for="OfferDropdownClient">Клиент</label>
+            <select id="OfferDropdown" name="OfferDropdownClient">
+                {{#each client}}
+                    <option value="{{this.id}}">{{this.firstName}} {{this.lastName}}</option>
+                {{/each}}
+            </select>
+        </div>
+
+        <div class="form__input">
+            <label class="user-form-label user-form-label-big" for="OfferDropdownRieltor">Риелтор</label>
+            <select id="OfferDropdown" name="OfferDropdownRieltor">
+                {{#each rieltor}}
+                    <option value="{{this.id}}">{{this.firstName}} {{this.lastName}}</option>
+                {{/each}}
+            </select>
+        </div>
+
+        <div class="form__input">
+            <label class="user-form-label user-form-label-big" for="floatingInput">Минимальная цена</label>
+            <input type="text" class="form-control" id="floatingInput" value="{{this.minPrice}}" placeholder="Минимальная цена"
+                name="minPrice">
+        </div>
+
+        <div class="form__input">
+            <label class="user-form-label user-form-label-big" for="floatingInput">Максимальная цена</label>
+            <input type="text" class="form-control" id="floatingInput" value="{{this.maxPrice}}" placeholder="Максимальная цена"
+                name="maxPrice">
+        </div>
+
+        <div class="form__input">
+            <label class="user-form-label user-form-label-big" for="floatingInput">Адрес</label>
+            <input type="text" class="form-control" id="floatingInput" value="{{this.address}}" placeholder="Адрес"
+                name="address">
+        </div>
+
+        <div class="form__input">
+            <label class="user-form-label user-form-label-big" for="EstateDropdown">Тип недвижимости</label>
+            <select id="EstateDropdown" name="EstateDropdown">
+                <option value="flat">Квартира</option>
+                <option value="territory">Земля</option>
+                <option value="house">Дом</option>
+            </select>
+        </div>
+
+        <div class="form__input">
+            <label class="user-form-label user-form-label-big" for="floatingInput">Минимальная площадь</label>
+            <input type="text" class="form-control" id="floatingInput" value="{{this.minSpace}}" placeholder="Минимальная площадь"
+                name="minSpace">
+        </div>
+
+        <div class="form__input">
+            <label class="user-form-label user-form-label-big" for="floatingInput">Максимальная площадь</label>
+            <input type="text" class="form-control" id="floatingInput" value="{{this.maxSpace}}" placeholder="Максимальная площадь"
+                name="maxSpace">
+        </div>
+
+        <div class="none" id="estate_flat">
+            <div class="form__input">
+                <label class="user-form-label user-form-label-big" for="floatingInput">Минимальное количество комнат</label>
+                <input type="text" class="form-control" id="floatingInput" value="{{this.minRoom}}" placeholder="Минимальное количество комнат"
+                    name="flat_minRoom">
+            </div>
+
+            <div class="form__input">
+                <label class="user-form-label user-form-label-big" for="floatingInput">Максимальное количество комнат</label>
+                <input type="text" class="form-control" id="floatingInput" value="{{this.maxRoom}}" placeholder="Максимальное количество комнат"
+                    name="flat_maxRoom">
+            </div>
+
+            <div class="form__input">
+                <label class="user-form-label user-form-label-big" for="floatingInput">Минимальный этаж</label>
+                <input type="text" class="form-control" id="floatingInput" value="{{this.minFloor}}" placeholder="Минимальный этаж"
+                    name="flat_minFloor">
+            </div>
+
+            <div class="form__input">
+                <label class="user-form-label user-form-label-big" for="floatingInput">Максимальный этаж</label>
+                <input type="text" class="form-control" id="floatingInput" value="{{this.maxFloor}}" placeholder="Максимальный этаж"
+                    name="flat_maxFloor">
+            </div>
+        </div>
+
+        <div class="none" id="estate_house">
+            <div class="form__input">
+                <label class="user-form-label user-form-label-big" for="floatingInput">Минимальное количество комнат</label>
+                <input type="text" class="form-control" id="floatingInput" value="{{this.minRoom}}" placeholder="Минимальное количество комнат"
+                    name="house_minRoom">
+            </div>
+
+            <div class="form__input">
+                <label class="user-form-label user-form-label-big" for="floatingInput">Максимальное количество комнат</label>
+                <input type="text" class="form-control" id="floatingInput" value="{{this.maxRoom}}" placeholder="Максимальное количество комнат"
+                    name="house_maxRoom">
+            </div>
+
+            <div class="form__input">
+                <label class="user-form-label user-form-label-big" for="floatingInput">Минимальное количество этажей</label>
+                <input type="text" class="form-control" id="floatingInput" value="{{this.minFloor}}" placeholder="Минимальное количество этажей"
+                    name="house_minFloor">
+            </div>
+
+            <div class="form__input">
+                <label class="user-form-label user-form-label-big" for="floatingInput">Максимальное количество этажей</label>
+                <input type="text" class="form-control" id="floatingInput" value="{{this.maxFloor}}" placeholder="Максимальное количество этажей"
+                    name="house_maxFloor">
+            </div>
+        </div>
+
+        <div class="none" id="estate_territory">
+        </div>
+
+    </div>
+
+    <div class="col-12">
+        <button class="btn btn-primary" type="submit">Добавить</button>
+    </div>
+</form>

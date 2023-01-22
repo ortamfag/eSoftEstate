@@ -7,6 +7,7 @@ const rieltorController = require('../controllers/rieltorController')
 const searchController = require('../controllers/searchController')
 const estateController = require('../controllers/estateController')
 const offerController = require('../controllers/offerController')
+const requirementController = require('../controllers/requirementController')
 
 router.get('/', startController.start)
 
@@ -78,3 +79,25 @@ router.get('/editOfferView/:id', offerController.editOfferView)
 router.post('/editOffer/:id', offerController.editOffer)
 
 module.exports = router
+
+//Requirement
+router.get('/requirement', requirementController.requirementView)
+
+//Add requirement
+router.get('/addRequirement', requirementController.addRequirementView)
+router.post('/addRequirementAction', requirementController.addRequirement)
+
+// //Delete requirement
+// router.post('/deleteRequirementAction/flat/:id', requirementController.deleteRequirementFlat)
+// router.post('/deleteRequirementAction/house/:id', requirementController.deleteRequirementHouse)
+// router.post('/deleteRequirementAction/territory/:id', requirementController.deleteRequirementTerritory)
+
+// //Change requirement
+// router.get('/editRequirementView/flat/:id', requirementController.editRequirementFlatView)
+// router.post('/editRequirement/flat/:id', requirementController.editRequirementFlat)
+
+// router.get('/editRequirementView/house/:id', requirementController.editRequirementHouseView)
+// router.post('/editRequirement/house/:id', requirementController.editRequirementHouse)
+
+// router.get('/editRequirementView/territory/:id', requirementController.editRequirementTerritoryView)
+// router.post('/editRequirement/territory/:id', requirementController.editRequirementTerritory)
